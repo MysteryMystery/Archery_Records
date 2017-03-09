@@ -9,7 +9,15 @@ import java.sql.{Connection, DriverManager, PreparedStatement, ResultSet}
   */
 class DatabaseHandler {
   private final val dataDir: File = new File("data")
-  private val connection: Connection = getConnection()
+  private val connection: Connection = getConnection
+
+  //User accounts
+  createTable("Account", Map(
+    "id" -> "INTEGER PRIMARY KEY AUTOINCREMENT",
+    "username" -> "varchar(255) COLLATE NOCASE",
+    "password" -> "varchar(255)"
+  ))
+//"CREATE TABLE IF NOT EXISTS ACCOUNT(id INTEGER PRIMARY KEY, username VARCHAR(255) COLLATE NOCASE, password VARCHAR(256))"
 
   //Club members
   createTable("archer", Map(
@@ -33,7 +41,7 @@ class DatabaseHandler {
     "distance" -> "ARRAY"
   ))
 
-  private def getConnection(): Connection = {
+  private def getConnection: Connection = {
     if (!dataDir.exists()){
       dataDir.mkdir()
     }
@@ -52,15 +60,29 @@ class DatabaseHandler {
     executeStatement(query)
   }
 
-  def executeStatement(statement: String, arguments: List[String] = List(), search: Boolean = false): Any ={
+  def executeStatement(statement: String, arguments: List[String] = List(), search: Boolean = false): ResultSet ={
     try{
       var preparedStatement: PreparedStatement = connection.prepareStatement(statement, arguments.toArray[String])
       if (search){
         return preparedStatement.executeQuery()
       }
-      return preparedStatement.execute()
+      preparedStatement.execute()
     }catch{
       case e: Exception => e.printStackTrace()
     }
+    null
+  }
+
+  def hasAccount: Boolean = {
+    try {
+      var preparedStatement: PreparedStatement = connection.prepareStatement("SELECT username, password FROM ACCOUNT")
+      if (preparedStatement.executeQuery().next()) {
+        return true
+      }
+    }
+    catch {
+      case e: Exception => e.printStackTrace()
+    }
+    false
   }
 }
