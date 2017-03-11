@@ -13,6 +13,8 @@ class DatabaseHandler {
   private final val dataDir: File = new File("data")
   private val connection: Connection = getConnection
 
+  connection.setAutoCommit(true)
+
   //User accounts
   createTable("account", Map(
     "id" -> "INTEGER PRIMARY KEY AUTOINCREMENT",
@@ -88,7 +90,7 @@ class DatabaseHandler {
     false
   }
 
-  def insert(table: String, column_value: Map[String, Any]): Boolean = {
+  def insert(table: String, column_value: Map[String, Any]): Unit = {
     var columns: Iterable[String] = column_value.keys
     var values: ListBuffer[String] = ListBuffer()
     for (key: String <- columns){
@@ -100,7 +102,6 @@ class DatabaseHandler {
     }
     query = query.substring(0, query.length-1) + ");"
     println(query)
-
-    true
+    executeStatement(query, values.toList)
   }
 }
