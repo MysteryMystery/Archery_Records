@@ -20,4 +20,8 @@ trait ScriptingUtil {
     return hashed
   }
 
+  def checkPass(pass1: String, pass2:String):Boolean = {
+    pass1.equals(pass2)
+  }
+
 }

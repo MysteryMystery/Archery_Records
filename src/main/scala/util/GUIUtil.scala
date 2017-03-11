@@ -1,5 +1,7 @@
 package util
 
+import data.{ConfigLoader, DatabaseHandler}
+
 import scala.sys.process.ProcessBuilder.URLBuilder
 import scalafx.geometry.{Insets, Pos, Rectangle2D}
 import scalafx.scene.Scene
@@ -12,6 +14,9 @@ import scalafx.stage.Screen
   * Created by James on 08/03/2017.
   */
 trait GUIUtil {
+  var databaseHandler: DatabaseHandler
+  var confLoader: ConfigLoader
+
   val screenSize: Rectangle2D = Screen.primary.visualBounds
 
   var gridPane: GridPane = generateGridPane
@@ -22,7 +27,8 @@ trait GUIUtil {
     sceneTitle.setId("sceneTitle")
     gridPane.add(sceneTitle, 0, 0, 2, 1)
 
-    var scene: Scene = new Scene(gridPane, screenSize.getWidth, screenSize.getHeight)
+    var scene: Scene = new Scene(gridPane, screenSize.getWidth , screenSize.getHeight)
+    //var scene: Scene = new Scene(gridPane, if(confLoader.get("fullscreen").asInstanceOf) screenSize.getWidth else 400, if(confLoader.get("fullscreen").asInstanceOf) screenSize.getHeight else 300)
     scene.stylesheets.add(getClass.getResource("/styles.css").toExternalForm)
     scene
   }

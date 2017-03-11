@@ -4,6 +4,8 @@ import java.io.File
 import java.nio.file.{Files, Paths}
 import java.sql.{Connection, DriverManager, PreparedStatement, ResultSet}
 
+import scala.collection.mutable.ListBuffer
+
 /**
   * Created by USER on 07/03/2017.
   */
@@ -12,7 +14,7 @@ class DatabaseHandler {
   private val connection: Connection = getConnection
 
   //User accounts
-  createTable("Account", Map(
+  createTable("account", Map(
     "id" -> "INTEGER PRIMARY KEY AUTOINCREMENT",
     "username" -> "varchar(255) COLLATE NOCASE",
     "password" -> "varchar(255)"
@@ -84,5 +86,21 @@ class DatabaseHandler {
       case e: Exception => e.printStackTrace()
     }
     false
+  }
+
+  def insert(table: String, column_value: Map[String, Any]): Boolean = {
+    var columns: Iterable[String] = column_value.keys
+    var values: ListBuffer[String] = ListBuffer()
+    for (key: String <- columns){
+      values.append(column_value.get(key).toString)
+    }
+    var query: String = s"insert into ${table}(${columns.mkString(", ")}) values ("
+    for (value: String <- values){
+      query += "?,"
+    }
+    query = query.substring(0, query.length-1) + ");"
+    println(query)
+
+    true
   }
 }

@@ -1,9 +1,10 @@
 package scene.form.login
 
 
-import data.DatabaseHandler
+import data.{ConfigLoader, DatabaseHandler}
 import util.{GUIUtil, ScriptingUtil}
 
+import scala.collection.mutable.ListBuffer
 import scalafx.geometry.Pos
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, Label, PasswordField, TextField}
@@ -16,8 +17,10 @@ import scalafx.event.Event
 /**
   * Created by James on 08/03/2017.
   */
-class FirstUserRegistration() extends GUIUtil with ScriptingUtil{
+class FirstUserRegistration(dbh: DatabaseHandler, configLoader: ConfigLoader) extends GUIUtil with ScriptingUtil{
   override var sceneTitle: Text = new Text("First Time Login")
+  override var databaseHandler: DatabaseHandler = dbh
+  override var confLoader: ConfigLoader = configLoader
 
   var userLabel: Label = new Label("New Username: ")
   var passLabel: Label = new Label("New Password: ")
@@ -35,7 +38,7 @@ class FirstUserRegistration() extends GUIUtil with ScriptingUtil{
       //Check if combination valid etc THEN
       // store THEN
       // change scene to main menu
-      println("Button Clicked")
+      registerButtonFunc(event)
     }
   }
   registerButton.setDefaultButton(true)
@@ -54,7 +57,22 @@ class FirstUserRegistration() extends GUIUtil with ScriptingUtil{
 
   makeMaxWidth(userLabel, passLabel, passLabelCheck)
 
-  def handle(event: Event): Unit ={
+  def registerButtonFunc(event: Event): Unit = {
+    var pswds: ListBuffer[String] = ListBuffer()
 
+    if (passEntryPlainText.visible.apply()){
+      pswds += passEntryPlainText.getText
+      pswds += passEntryCheck.getText()
+    }else{
+      pswds += passEntryPass.getText()
+      pswds += passEntryPassCheck.getText()
+    }
+
+    if (pswds.head == pswds(1)){
+      databaseHandler.insert("account", Map(
+        "username" -> userEntry.getText,
+        "password" -> pswds.head
+      ))
+    }
   }
 }
