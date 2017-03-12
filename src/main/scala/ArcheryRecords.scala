@@ -1,5 +1,6 @@
 import data.{ConfigLoader, DatabaseHandler}
-import scene.form.login.FirstUserRegistration
+import exception.CustomDatabaseExeption
+import scene.form.login.{FirstUserRegistration, NormalLogin}
 import util.GUIUtil
 
 import scala.beans.BeanProperty
@@ -66,7 +67,10 @@ object run extends JFXApp{
   }
   else {
     // normal login
+    var form = new NormalLogin(databaseHandler, confLoader)
+    stage.scene = form.getScene
   }
+
   //stage.fullScreen = true
   stage.icons.add(new Image("ArcheryRecordsIcon.png"))
 }

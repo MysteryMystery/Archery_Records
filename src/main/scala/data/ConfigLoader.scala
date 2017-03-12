@@ -41,6 +41,7 @@ class ConfigLoader {
     var innerLevel: util.LinkedHashMap[String, Any] = new util.LinkedHashMap[String, Any]
 
     innerLevel.put("fullscreen", true)
+    innerLevel.put("screensize", "0x0")
     innerLevel.put("debug", false)
 
     toDump.put("settings", innerLevel)

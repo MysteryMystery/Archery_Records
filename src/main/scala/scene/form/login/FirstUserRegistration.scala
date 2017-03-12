@@ -43,7 +43,9 @@ class FirstUserRegistration(dbh: DatabaseHandler, configLoader: ConfigLoader) ex
   }
   registerButton.setDefaultButton(true)
 
-  //positioning
+  //visibility - make into method
+  passEntryPlainText.visible = false
+  passEntryCheck.visible = false
 
   gridPane.add(userLabel, 0, 1, 1, 1)
   gridPane.add(passLabel, 0, 2, 1, 1)

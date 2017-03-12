@@ -4,6 +4,8 @@ import java.io.File
 import java.nio.file.{Files, Paths}
 import java.sql.{Connection, DriverManager, PreparedStatement, ResultSet}
 
+import exception.CustomDatabaseExeption
+
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -63,7 +65,7 @@ class DatabaseHandler {
     println(query)
     executeStatement(query)
   }
-
+  //Not like python - learnt the hard way
   def executeStatement(statement: String, arguments: List[String] = List(), search: Boolean = false): ResultSet ={
     try{
       var preparedStatement: PreparedStatement = connection.prepareStatement(statement, arguments.toArray[String])
@@ -92,16 +94,38 @@ class DatabaseHandler {
 
   def insert(table: String, column_value: Map[String, Any]): Unit = {
     var columns: Iterable[String] = column_value.keys
-    var values: ListBuffer[String] = ListBuffer()
-    for (key: String <- columns){
+    var values: ListBuffer[Any] = ListBuffer()
+    for (key: String <- columns) {
       values.append(column_value.get(key).toString)
     }
     var query: String = s"insert into ${table}(${columns.mkString(", ")}) values ("
-    for (value: String <- values){
+    for (value: Any <- values) {
       query += "?,"
     }
-    query = query.substring(0, query.length-1) + ");"
+    query = query.substring(0, query.length - 1) + ");"
     println(query)
-    executeStatement(query, values.toList)
+    println(values)
+
+    var preparedStatement: PreparedStatement = connection.prepareStatement(query)
+    preparedStatement = populatePreparedStatementValues(preparedStatement, values.toList)
+    preparedStatement.addBatch()
+    preparedStatement.execute()
   }
+
+  def populatePreparedStatementValues(preparedStatement: PreparedStatement, values: List[Any]): PreparedStatement={
+    var counter: Int = 1
+    for (value: Any <- values){
+      value match {
+        case _: String =>
+          preparedStatement.setString(counter, value.asInstanceOf[String])
+        case _: Int =>
+          preparedStatement.setInt(counter, value.asInstanceOf[Int])
+        case _ =>
+          throw CustomDatabaseExeption(s"Not catered for the datatype ${value.getClass} in populatePreparedStatementValues match statement.")
+      }
+      counter += 1
+    }
+    preparedStatement
+  }
+
 }
