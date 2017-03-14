@@ -107,7 +107,7 @@ class DatabaseHandler {
     println(values)
 
     var preparedStatement: PreparedStatement = connection.prepareStatement(query)
-    preparedStatement = populatePreparedStatementValues(preparedStatement, values.toList)
+    preparedStatement = populatePreparedStatementValues(preparedStatement, /*values.toList*/ column_value.values.toArray.toList)
     preparedStatement.addBatch()
     preparedStatement.execute()
   }
