@@ -9,12 +9,15 @@ import org.yaml.snakeyaml.{DumperOptions, Yaml}
 
 import scala.beans.BeanProperty
 import scala.collection.mutable
+import scala.reflect.io.Path
 
 /**
   * Created by James on 11/03/2017.
   */
 class ConfigLoader {
-  val fileName: String = "src/main/resources/config.yml"
+  val internalFileName: String = "src/main/resources/config.yml"
+  //val fileName: String = "src/main/resources/config.yml"
+  val fileName: String = "data/config.yml"
   var yaml: Yaml = new Yaml()
 
   init()
@@ -27,12 +30,22 @@ class ConfigLoader {
   def init(): Unit = {
     val confFile: File = new File(fileName)
     if (!confFile.exists()){
-      confFile.createNewFile()
-      writeDefaults
+      //confFile.createNewFile()
+      //writeDefaults
+      copy()
     }
     else if (confFile.length() == 0){
-      writeDefaults
+      //writeDefaults
+      copy()
     }
+  }
+
+  def copy(): Unit = {
+    var original: Path = new Path(internalFileName)
+    var newFile: Path = new Path(fileName)
+
+    newFile.createFile()
+    //Input to new file here
   }
 
   def writeDefaults(): Unit = {
