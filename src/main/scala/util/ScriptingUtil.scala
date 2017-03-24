@@ -6,6 +6,9 @@ import java.security.{MessageDigest, NoSuchAlgorithmException}
   * Created by James on 08/03/2017.
   */
 trait ScriptingUtil {
+  def getClassNameString: String = {
+    super.getClass.toString
+  }
 
   def hash(toHash: String): String ={
     var hashed: String = ""

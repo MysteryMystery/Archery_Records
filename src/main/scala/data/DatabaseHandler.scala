@@ -1,5 +1,6 @@
 package data
 
+
 import java.io.File
 import java.nio.file.{Files, Paths}
 import java.sql.{Connection, DriverManager, PreparedStatement, ResultSet}
@@ -8,6 +9,7 @@ import exception.CustomDatabaseExeption
 
 import scala.collection.mutable.ListBuffer
 
+import ArcheryRecords.{logger, debug}
 /**
   * Created by USER on 07/03/2017.
   */
@@ -62,7 +64,9 @@ class DatabaseHandler {
       query += s"${col._1} ${col._2}, "
     }
     query = query.substring(0, query.length-2) + ");"
-    println(query)
+    if (debug){
+      logger.log(logger.DEBUG, this.getClass.getSimpleName, query)
+    }
     executeStatement(query)
   }
   //Not like python - learnt the hard way
@@ -108,8 +112,28 @@ class DatabaseHandler {
 
     var preparedStatement: PreparedStatement = connection.prepareStatement(query)
     preparedStatement = populatePreparedStatementValues(preparedStatement, /*values.toList*/ column_value.values.toArray.toList)
-    preparedStatement.addBatch()
     preparedStatement.execute()
+  }
+
+  def insertAccount(username: String, password: String): Unit = {
+    var preparedStatement: PreparedStatement = connection.prepareStatement(
+      "INSERT INTO ACCOUNT(username, password) values (?,?);"
+    )
+    preparedStatement.setString(1, username)
+    preparedStatement.setString(2, password)
+
+    println(preparedStatement.getParameterMetaData.getParameterCount)
+
+    preparedStatement.execute()
+  }
+
+  def removeAccount(username: String): Unit = {
+    var preparedStatement: PreparedStatement = connection.prepareStatement(
+      "DELETE FROM ACCOUNT WHERE username=?;"
+    )
+    preparedStatement.setString(1,username)
+    preparedStatement.addBatch
+    preparedStatement.execute
   }
 
   def populatePreparedStatementValues(preparedStatement: PreparedStatement, values: List[Any]): PreparedStatement={

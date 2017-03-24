@@ -1,1 +1,1 @@
-settings: {fullscreen: false, debug: false}
+{screensize: '0x0', debug: true, fullscreen: true}

@@ -100,6 +100,7 @@ class FirstUserRegistration(dbh: DatabaseHandler, configLoader: ConfigLoader) ex
         "username" -> userEntry.getText,
         "password" -> pswds.head
       ))
+      //databaseHandler.insertAccount(userEntry.getText(), hash(pswds.head))
     }
   }
 }

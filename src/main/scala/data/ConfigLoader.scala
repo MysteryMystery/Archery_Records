@@ -2,8 +2,8 @@ package data
 
 import java.io.{File, FileInputStream, FileWriter, StringWriter}
 import java.util
-import java.util.LinkedHashMap
 
+import ArcheryRecords.logger
 import org.yaml.snakeyaml.nodes.Tag
 import org.yaml.snakeyaml.{DumperOptions, Yaml}
 
@@ -14,10 +14,10 @@ import scala.reflect.io.Path
 /**
   * Created by James on 11/03/2017.
   */
-class ConfigLoader {
+class ConfigLoader extends {
   val internalFileName: String = "src/main/resources/config.yml"
-  //val fileName: String = "src/main/resources/config.yml"
-  val fileName: String = "data/config.yml"
+  val fileName: String = "src/main/resources/config.yml"
+  //val fileName: String = "data/config.yml"
   var yaml: Yaml = new Yaml()
 
   init()
@@ -25,45 +25,43 @@ class ConfigLoader {
   val stream: FileInputStream = new FileInputStream(new File(fileName))
   val dumperOptions: DumperOptions = setupDumpOptions()
 
-  var data: util.LinkedHashMap[String, util.LinkedHashMap[String, Any]] = load()
+  var data: util.HashMap[String, Any] = load()
 
   def init(): Unit = {
     val confFile: File = new File(fileName)
-    if (!confFile.exists()){
+    if (!confFile.exists() || confFile.length() == 0){
       //confFile.createNewFile()
-      //writeDefaults
-      copy()
-    }
-    else if (confFile.length() == 0){
-      //writeDefaults
-      copy()
+      writeDefaults
     }
   }
 
   def copy(): Unit = {
-    var original: Path = new Path(internalFileName)
-    var newFile: Path = new Path(fileName)
-
-    newFile.createFile()
     //Input to new file here
   }
 
   def writeDefaults(): Unit = {
     println(" -- Write Defaults -- ")
-    var toDump: util.LinkedHashMap[String, util.LinkedHashMap[String, Any]] = new util.LinkedHashMap[String, util.LinkedHashMap[String, Any]]()
-    var innerLevel: util.LinkedHashMap[String, Any] = new util.LinkedHashMap[String, Any]
+    //var toDump: util.LinkedHashMap[String, util.LinkedHashMap[String, Any]] = new util.LinkedHashMap[String, util.LinkedHashMap[String, Any]]()
+    //var innerLevel: util.LinkedHashMap[String, Any] = new util.LinkedHashMap[String, Any]
 
-    innerLevel.put("fullscreen", true)
-    innerLevel.put("screensize", "0x0")
-    innerLevel.put("debug", false)
+    //innerLevel.put("fullscreen", true)
+    //innerLevel.put("screensize", "0x0")
+   // innerLevel.put("debug", false)
 
-    toDump.put("settings", innerLevel)
-
+    //toDump.put("settings", innerLevel)
+    var toDump: util.HashMap[String, Any] = new util.HashMap[String,Any]()
+    toDump.put("fullscreen", true)
+    toDump.put("screensize", "0x0")
+    toDump.put("debug", true)
     dump(toDump)
   }
 
-  def load(): util.LinkedHashMap[String, util.LinkedHashMap[String, Any]] = {
-    var data: util.LinkedHashMap[String, util.LinkedHashMap[String, Any]] = yaml.load(stream).asInstanceOf[util.LinkedHashMap[String, util.LinkedHashMap[String, Any]]]
+  def load(): util.HashMap[String, Any] = {
+    var data: util.HashMap[String, Any] = yaml.load(stream).asInstanceOf[util.HashMap[String, Any]]
+    if (/*getDebug*/true){
+      logger.log(logger.DEBUG, this.getClass.toString, s"Config Settings: $data")
+      logger.log(logger.DEBUG, this.getClass.toString, s"Config Keys: ${data keySet()}")
+    }
     data
   }
 
@@ -73,20 +71,16 @@ class ConfigLoader {
 
   def setupDumpOptions(): DumperOptions = {
     var options: DumperOptions = new DumperOptions
-    if (debug) {
-      options.setDefaultFlowStyle(DumperOptions.FlowStyle.FLOW)
-      println(options.getDefaultFlowStyle)
-      println(options.getLineBreak)
-    }
     options
   }
 
   def get(configValue: String): Any = {
     //yaml.load(stream).asInstanceOf[util.LinkedHashMap[String, util.LinkedHashMap[String, Any]]].get("settings").get("fullscreen")
-    data.get("settings").get(configValue)
+    data.get(configValue)
   }
 
-  def debug: Boolean = {
-    true
+  def getDebug: Boolean = {
+    //get("debug").asInstanceOf
+    data.get("debug").asInstanceOf[Boolean]
   }
 }

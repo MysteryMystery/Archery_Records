@@ -1,7 +1,7 @@
 import data.{ConfigLoader, DatabaseHandler}
 import exception.CustomDatabaseExeption
 import scene.form.login.{FirstUserRegistration, NormalLogin}
-import util.GUIUtil
+import util.{GUIUtil, Logger}
 
 import scala.beans.BeanProperty
 import scalafx.application.JFXApp
@@ -19,43 +19,24 @@ import scalafx.stage.Screen
 /**
   * Created by USER on 07/03/2017.
   */
-/*class ArcheryRecords{
-  private val databaseHandler: DatabaseHandler = new DatabaseHandler
-  private val confLoader: ConfigLoader = new ConfigLoader
 
-  def getDatabaseHandler(): DatabaseHandler = {
-    databaseHandler
-  }
-
-  def getConfLoader(): ConfigLoader = {
-    confLoader
-  }
-
-}*/
 class ArcheryRecords
 
 package object ArcheryRecords {
+  var logger: Logger = new Logger
   var databaseHandler: DatabaseHandler = new DatabaseHandler
   var confLoader: ConfigLoader = new ConfigLoader
 
-  /*stage = new PrimaryStage
-  stage.setTitle("Archery Records")
-
-  if (!databaseHandler.hasAccount){
-    //set first login form
-    var form = new FirstUserRegistration(databaseHandler)
-    stage.scene = form.getScene
-  }
-  else {
-    // normal login
-  }
-  //stage.fullScreen = true
-  stage.icons.add(new Image("ArcheryRecordsIcon.png"))*/
+  var debug: Boolean = confLoader.getDebug
 }
 
 object run extends JFXApp{
   var databaseHandler = ArcheryRecords.databaseHandler
   val confLoader = ArcheryRecords.confLoader
+
+  if (ArcheryRecords.debug){
+    println("Debug set to true")
+  }
 
   stage = new PrimaryStage
   stage.setTitle("Archery Records")
