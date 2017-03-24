@@ -17,16 +17,26 @@
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.12/resource_managed/main" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.12/resource_managed/test" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../target" />
       <excludeFolder url="file://$MODULE_DIR$/../../target/resolution-cache" />
       <excludeFolder url="file://$MODULE_DIR$/../../target/streams" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.12.1:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.12.1:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.scalafx:scalafx_2.12:8.0.102-R11:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.xerial:sqlite-jdbc:3.7.2:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.yaml:snakeyaml:1.8:jar" level="project" />
     <orderEntry type="library" name="SBT: commons-io:commons-io:2.5:jar" level="project" />
+    <orderEntry type="module-library">
+      <library name="SBT: unmanaged-jars">
+        <CLASSES>
+          <root url="jar://C:/Program Files/Java/jdk1.8.0_65/jre/lib/ext/jfxrt.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="SBT: org.yaml:snakeyaml:1.8:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.xerial:sqlite-jdbc:3.7.2:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.scalafx:scalafx_2.12:8.0.102-R11:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.12.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.12.1:jar" level="project" />
   </component>
 </module>

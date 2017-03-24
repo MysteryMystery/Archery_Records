@@ -1,10 +1,12 @@
+import javafx.application.Application
+
 import data.{ConfigLoader, DatabaseHandler}
 import exception.CustomDatabaseExeption
 import scene.form.login.{FirstUserRegistration, NormalLogin}
 import util.{GUIUtil, Logger}
 
 import scala.beans.BeanProperty
-import scalafx.application.JFXApp
+import scalafx.application.{AppHelper, JFXApp}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.geometry.{Insets, Rectangle2D}
 import scalafx.scene.Scene
@@ -26,6 +28,7 @@ package object ArcheryRecords {
   var logger: Logger = new Logger
   var databaseHandler: DatabaseHandler = new DatabaseHandler
   var confLoader: ConfigLoader = new ConfigLoader
+  var primaryStage: JFXApp.PrimaryStage = _
 
   var debug: Boolean = confLoader.getDebug
 }
@@ -39,19 +42,26 @@ object run extends JFXApp{
   }
 
   stage = new PrimaryStage
+
+  ArcheryRecords.primaryStage = stage
+
   stage.setTitle("Archery Records")
 
   if (!databaseHandler.hasAccount){
     //set first login form
     var form = new FirstUserRegistration(databaseHandler, confLoader)
-    stage.scene = form.getScene
+
+  stage.scene = form.getScene
   }
   else {
     // normal login
     var form = new NormalLogin(databaseHandler, confLoader)
-    stage.scene = form.getScene
+
+  stage.scene = form.getScene
   }
 
   //stage.fullScreen = true
+
   stage.icons.add(new Image("ArcheryRecordsIcon.png"))
+
 }

@@ -4,7 +4,8 @@ import data.{ConfigLoader, DatabaseHandler}
 import util.{GUIUtil, ScriptingUtil}
 
 import scalafx.event.ActionEvent
-import scalafx.scene.control.{CheckBox, Label, PasswordField, TextField}
+import scalafx.geometry.Pos
+import scalafx.scene.control._
 import scalafx.scene.text.Text
 
 /**
@@ -26,8 +27,22 @@ class NormalLogin(dbh: DatabaseHandler, cfl: ConfigLoader) extends GUIUtil with 
   var changePassBox: CheckBox = new CheckBox("Show passwords in plain text.")
   //changePassBox.onAction =
 
-  addInCol(0, 1, 1, 1, usernameLabel, passwordLabel)
-  addInCol(1, 1, 1, 1, usernameEntry, usernameLabel)
+  var loginButton: Button = new Button("Login")
+  loginButton.alignment = Pos.CenterRight
+
+  var warningText:Text = new Text(">>warning text box<<")
+  warningText.id = "warning"
+
+  //addInCol(0, 1, 1, 1, usernameLabel, passwordLabel)
+  //addInCol(1, 1, 2, 1, usernameEntry, passwordEntryPasswordField)
+  gridPane.add(usernameLabel, 0, 1, 1, 1)
+  gridPane.add(passwordLabel, 0, 2, 1, 1)
+  gridPane.add(usernameEntry, 1, 1, 2, 1)
+  gridPane.add(passwordEntryPasswordField, 1, 2, 2, 1)
+  gridPane.add(loginButton, 2, 3)
+  gridPane.add(changePassBox, 0, 3, 2, 1)
+  gridPane.add(warningText, 0, 4, 3, 1)
+
 
   def checkBoxFunc(event: ActionEvent): Unit = {
     passwordEntryPlainText.visible = changePassBox.selected.get()

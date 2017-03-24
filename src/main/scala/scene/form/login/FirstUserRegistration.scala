@@ -36,6 +36,7 @@ class FirstUserRegistration(dbh: DatabaseHandler, configLoader: ConfigLoader) ex
   var passEntryPassCheck: PasswordField = new PasswordField()
 
   var warningField: Text = new Text("")
+  warningField.setId("warning")
 
   var registerButton:Button = new Button("Register") {
     onAction = (event: Event) => {
@@ -98,9 +99,13 @@ class FirstUserRegistration(dbh: DatabaseHandler, configLoader: ConfigLoader) ex
     if (pswds.head == pswds(1)){
       databaseHandler.insert("account", Map(
         "username" -> userEntry.getText,
-        "password" -> pswds.head
+        "password" -> hash(pswds.head)
       ))
-      //databaseHandler.insertAccount(userEntry.getText(), hash(pswds.head))
+
+      ArcheryRecords.primaryStage.scene = new NormalLogin(dbh, configLoader).getScene
+    }
+    else{
+      warningField.setText("Please check that the passwords are matching.")
     }
   }
 }

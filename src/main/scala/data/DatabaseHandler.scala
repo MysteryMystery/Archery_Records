@@ -115,27 +115,6 @@ class DatabaseHandler {
     preparedStatement.execute()
   }
 
-  def insertAccount(username: String, password: String): Unit = {
-    var preparedStatement: PreparedStatement = connection.prepareStatement(
-      "INSERT INTO ACCOUNT(username, password) values (?,?);"
-    )
-    preparedStatement.setString(1, username)
-    preparedStatement.setString(2, password)
-
-    println(preparedStatement.getParameterMetaData.getParameterCount)
-
-    preparedStatement.execute()
-  }
-
-  def removeAccount(username: String): Unit = {
-    var preparedStatement: PreparedStatement = connection.prepareStatement(
-      "DELETE FROM ACCOUNT WHERE username=?;"
-    )
-    preparedStatement.setString(1,username)
-    preparedStatement.addBatch
-    preparedStatement.execute
-  }
-
   def populatePreparedStatementValues(preparedStatement: PreparedStatement, values: List[Any]): PreparedStatement={
     var counter: Int = 1
     for (value: Any <- values){

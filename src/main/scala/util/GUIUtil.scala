@@ -27,8 +27,11 @@ trait GUIUtil {
     sceneTitle.setId("sceneTitle")
     gridPane.add(sceneTitle, 0, 0, 2, 1)
 
+    // if (fullscreen): width = max, height = max else: look in config
+
     var scene: Scene = new Scene(gridPane, screenSize.getWidth , screenSize.getHeight)
-    //var scene: Scene = new Scene(gridPane, if(confLoader.get("fullscreen").asInstanceOf) screenSize.getWidth else 400, if(confLoader.get("fullscreen").asInstanceOf) screenSize.getHeight else 300)
+    //var scene: Scene = new Scene()
+
     scene.stylesheets.add(getClass.getResource("/styles.css").toExternalForm)
     scene
   }
