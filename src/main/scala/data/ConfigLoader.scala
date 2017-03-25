@@ -36,7 +36,7 @@ class ConfigLoader extends {
     println(" -- Write Defaults -- ")
     var toDump: util.HashMap[String, Any] = new util.HashMap[String,Any]()
     toDump.put("fullscreen", true)
-    toDump.put("screensize", "0x0")
+    toDump.put("screensize", "400x300")
     toDump.put("debug", true)
     dump(toDump)
   }
