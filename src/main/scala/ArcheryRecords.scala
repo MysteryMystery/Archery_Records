@@ -34,11 +34,9 @@ package object ArcheryRecords {
 }
 
 object run extends JFXApp{
-  var databaseHandler = ArcheryRecords.databaseHandler
-  val confLoader = ArcheryRecords.confLoader
 
   if (ArcheryRecords.debug){
-    println("Debug set to true")
+    ArcheryRecords.logger.log(ArcheryRecords.logger.DEBUG, this.getClass.getSimpleName, "Debug mode: TRUE")
   }
 
   stage = new PrimaryStage
@@ -47,15 +45,15 @@ object run extends JFXApp{
 
   stage.setTitle("Archery Records")
 
-  if (!databaseHandler.hasAccount){
+  if (!ArcheryRecords.databaseHandler.hasAccount){
     //set first login form
-    var form = new FirstUserRegistration(databaseHandler, confLoader)
+    var form = new FirstUserRegistration()
 
   stage.scene = form.getScene
   }
   else {
     // normal login
-    var form = new NormalLogin(databaseHandler, confLoader)
+    var form = new NormalLogin()
 
   stage.scene = form.getScene
   }

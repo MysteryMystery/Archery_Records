@@ -1,6 +1,7 @@
 package scene.form.login
 
 import data.{ConfigLoader, DatabaseHandler}
+import scene.form.mainmenu.MainMenu
 import util.{GUIUtil, ScriptingUtil}
 
 import scalafx.event.ActionEvent
@@ -11,9 +12,9 @@ import scalafx.scene.text.Text
 /**
   * Created by James on 12/03/2017.
   */
-class NormalLogin(dbh: DatabaseHandler, cfl: ConfigLoader) extends GUIUtil with ScriptingUtil{
-  override var databaseHandler: DatabaseHandler = dbh
-  override var confLoader: ConfigLoader = cfl
+class NormalLogin extends GUIUtil with ScriptingUtil{
+  //override var databaseHandler: DatabaseHandler = dbh
+  //override var confLoader: ConfigLoader = cfl
   override var sceneTitle: Text = new Text("User Login")
 
   var usernameLabel: Label = new Label("Username: ")
@@ -48,7 +49,7 @@ class NormalLogin(dbh: DatabaseHandler, cfl: ConfigLoader) extends GUIUtil with 
 
     if (databaseHandler.getAccount(usernameEntry.getText(), hash(text)).next()){
       //Continue to next scene (main menu)
-      warningText.text = "NEXT SCENE"
+      ArcheryRecords.primaryStage.scene = (new MainMenu).getScene
     }else{
       warningText.text = scene.incorrectPassUserCombination
     }

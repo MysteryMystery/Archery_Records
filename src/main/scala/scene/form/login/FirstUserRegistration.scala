@@ -17,10 +17,10 @@ import scalafx.event.{ActionEvent, Event}
 /**
   * Created by James on 08/03/2017.
   */
-class FirstUserRegistration(dbh: DatabaseHandler, configLoader: ConfigLoader) extends GUIUtil with ScriptingUtil{
+class FirstUserRegistration extends GUIUtil with ScriptingUtil{
   override var sceneTitle: Text = new Text("First Time Login")
-  override var databaseHandler: DatabaseHandler = dbh
-  override var confLoader: ConfigLoader = configLoader
+  //override var databaseHandler: DatabaseHandler = dbh
+  //override var confLoader: ConfigLoader = configLoader
 
   var userLabel: Label = new Label("New Username: ")
   var passLabel: Label = new Label("New Password: ")
@@ -102,7 +102,7 @@ class FirstUserRegistration(dbh: DatabaseHandler, configLoader: ConfigLoader) ex
         "password" -> hash(pswds.head)
       ))
 
-      ArcheryRecords.primaryStage.scene = new NormalLogin(dbh, configLoader).getScene
+      ArcheryRecords.primaryStage.scene = new NormalLogin().getScene
     }
     else{
       warningField.setText("Please check that the passwords are matching.")

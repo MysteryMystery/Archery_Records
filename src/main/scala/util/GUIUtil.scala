@@ -16,14 +16,14 @@ import ArcheryRecords._
   * Created by James on 08/03/2017.
   */
 trait GUIUtil {
-  var databaseHandler: DatabaseHandler
-  var confLoader: ConfigLoader
+  protected var databaseHandler: DatabaseHandler = ArcheryRecords.databaseHandler
+  protected var confLoader: ConfigLoader = ArcheryRecords.confLoader
 
-  val screenSize: Rectangle2D = Screen.primary.visualBounds
+  protected val screenSize: Rectangle2D = Screen.primary.visualBounds
 
-  var gridPane: GridPane = generateGridPane
+  protected var gridPane: GridPane = generateGridPane
 
-  var sceneTitle: Text
+  protected var sceneTitle: Text
 
   def getScene: Scene = {
     sceneTitle.setId("sceneTitle")
@@ -49,7 +49,7 @@ trait GUIUtil {
         scene.getStylesheets().add(StockControl.class.getResource(StockControl.styleSheetPath).toExternalForm());
    */
 
-  def generateGridPane: GridPane = {
+  protected def generateGridPane: GridPane = {
     val pane: GridPane = new GridPane
     pane.setAlignment(Pos.CENTER)
     pane.setHgap(10)
@@ -58,13 +58,13 @@ trait GUIUtil {
     pane
   }
 
-  def makeMaxWidth(components: Region*): Unit ={
+  protected def makeMaxWidth(components: Region*): Unit ={
     for (i: Region <- components){
       i.setMaxWidth(Double.MaxValue)
     }
   }
 
-  def addInRow(startingColumn:Int, row:Int, columnSpan:Int, rowSpan:Int, components: Region*): Unit ={
+  protected def addInRow(startingColumn:Int, row:Int, columnSpan:Int, rowSpan:Int, components: Region*): Unit ={
     var col = startingColumn
     for(component: Region <- components){
       gridPane.add(component, col, row)
@@ -72,7 +72,7 @@ trait GUIUtil {
     }
   }
 
-  def addInCol(column:Int, startingrow:Int, columnSpan:Int, rowSpan:Int, components: Region*): Unit ={
+  protected def addInCol(column:Int, startingrow:Int, columnSpan:Int, rowSpan:Int, components: Region*): Unit ={
     var row = startingrow
     for(component: Region <- components){
       gridPane.add(component, column, row)
