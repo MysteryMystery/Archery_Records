@@ -20,7 +20,7 @@ trait ScriptingUtil {
     catch {
       case e: NoSuchAlgorithmException => e.printStackTrace()
     }
-    return hashed
+    hashed
   }
 
   def checkPass(pass1: String, pass2:String):Boolean = {

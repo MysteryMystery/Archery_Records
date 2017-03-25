@@ -69,6 +69,7 @@ class DatabaseHandler {
     }
     executeStatement(query)
   }
+
   //Not like python - learnt the hard way
   def executeStatement(statement: String, arguments: List[String] = List(), search: Boolean = false): ResultSet ={
     try{
@@ -129,5 +130,12 @@ class DatabaseHandler {
       counter += 1
     }
     preparedStatement
+  }
+
+  def getAccount(username: String, password: String): ResultSet ={
+    var preparedStatement: PreparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNT WHERE username = ? AND password = ?;")
+    preparedStatement.setString(1, username)
+    preparedStatement.setString(2, password)
+    preparedStatement.executeQuery()
   }
 }

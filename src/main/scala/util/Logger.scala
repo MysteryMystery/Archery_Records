@@ -9,7 +9,7 @@ class Logger {
   val WARN: LoggerType = new LoggerType("warnlogger")
 
   def log(loggerType: LoggerType, className: String, message: String): Unit = {
-    println(s"[$loggerType - $className] $message")
+    println(s"[${loggerType.toString} - $className] $message")
   }
 }
 

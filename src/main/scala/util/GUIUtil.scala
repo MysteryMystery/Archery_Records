@@ -9,6 +9,8 @@ import scalafx.scene.layout.{GridPane, Region}
 import scalafx.scene.text.Text
 import scalafx.stage.Screen
 
+import ArcheryRecords._
+
 
 /**
   * Created by James on 08/03/2017.
@@ -28,8 +30,14 @@ trait GUIUtil {
     gridPane.add(sceneTitle, 0, 0, 2, 1)
 
     // if (fullscreen): width = max, height = max else: look in config
+    val height: Double =  if (!confLoader.get("fullscreen").asInstanceOf[Boolean]) confLoader.get("screensize").asInstanceOf[String].split("x")(1).toDouble else screenSize.getHeight
+    val width: Double =  if (!confLoader.get("fullscreen").asInstanceOf[Boolean]) confLoader.get("screensize").asInstanceOf[String].split("x")(0).toDouble else screenSize.getWidth
+    if(debug){
+      logger.log(logger.DEBUG, this.getClass.getSimpleName, s"Screen Width: $width")
+      logger.log(logger.DEBUG, this.getClass.getSimpleName, s"Screen Height: $height")
+    }
 
-    var scene: Scene = new Scene(gridPane, screenSize.getWidth , screenSize.getHeight)
+    var scene: Scene = new Scene(gridPane, width, height)
     //var scene: Scene = new Scene()
 
     scene.stylesheets.add(getClass.getResource("/styles.css").toExternalForm)

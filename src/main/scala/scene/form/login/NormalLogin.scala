@@ -25,26 +25,7 @@ class NormalLogin(dbh: DatabaseHandler, cfl: ConfigLoader) extends GUIUtil with 
   passwordEntryPlainText.visible = false
 
   var changePassBox: CheckBox = new CheckBox("Show passwords in plain text.")
-  //changePassBox.onAction =
-
-  var loginButton: Button = new Button("Login")
-  loginButton.alignment = Pos.CenterRight
-
-  var warningText:Text = new Text(">>warning text box<<")
-  warningText.id = "warning"
-
-  //addInCol(0, 1, 1, 1, usernameLabel, passwordLabel)
-  //addInCol(1, 1, 2, 1, usernameEntry, passwordEntryPasswordField)
-  gridPane.add(usernameLabel, 0, 1, 1, 1)
-  gridPane.add(passwordLabel, 0, 2, 1, 1)
-  gridPane.add(usernameEntry, 1, 1, 2, 1)
-  gridPane.add(passwordEntryPasswordField, 1, 2, 2, 1)
-  gridPane.add(loginButton, 2, 3)
-  gridPane.add(changePassBox, 0, 3, 2, 1)
-  gridPane.add(warningText, 0, 4, 3, 1)
-
-
-  def checkBoxFunc(event: ActionEvent): Unit = {
+  changePassBox.onAction = (event: javafx.event.ActionEvent) => {
     passwordEntryPlainText.visible = changePassBox.selected.get()
     passwordEntryPasswordField.visible = !changePassBox.selected.get()
 
@@ -54,4 +35,36 @@ class NormalLogin(dbh: DatabaseHandler, cfl: ConfigLoader) extends GUIUtil with 
       passwordEntryPasswordField.setText(passwordEntryPlainText.getText)
     }
   }
+
+  var loginButton: Button = new Button("Login")
+  loginButton.defaultButton = true
+  loginButton.onAction = (event: javafx.event.ActionEvent) => {
+    var text: String = null
+    if (passwordEntryPlainText.isVisible){
+      text = passwordEntryPlainText.getText
+    }else{
+      text = passwordEntryPasswordField.getText
+    }
+
+    if (databaseHandler.getAccount(usernameEntry.getText(), hash(text)).next()){
+      //Continue to next scene (main menu)
+      warningText.text = "NEXT SCENE"
+    }else{
+      warningText.text = scene.incorrectPassUserCombination
+    }
+  }
+
+  var warningText:Text = new Text("")
+  warningText.id = "warning"
+
+  //addInCol(0, 1, 1, 1, usernameLabel, passwordLabel)
+  //addInCol(1, 1, 2, 1, usernameEntry, passwordEntryPasswordField)
+  gridPane.add(usernameLabel, 0, 1, 1, 1)
+  gridPane.add(passwordLabel, 0, 2, 1, 1)
+  gridPane.add(usernameEntry, 1, 1, 2, 1)
+  gridPane.add(passwordEntryPasswordField, 1, 2, 2, 1)
+  gridPane.add(passwordEntryPlainText, 1, 2, 2, 1)
+  gridPane.add(loginButton, 2, 3)
+  gridPane.add(changePassBox, 0, 3, 2, 1)
+  gridPane.add(warningText, 0, 4, 3, 1)
 }
