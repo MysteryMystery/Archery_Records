@@ -7,6 +7,7 @@ import scalafx.event.ActionEvent
 import scalafx.scene.control.Button
 import scalafx.scene.text.Text
 import ArcheryRecords._
+import scene.form.member.MemberMenu
 
 /**
   * Project: Archery_Records
@@ -18,7 +19,7 @@ class MainMenu extends GUIUtil with ScriptingUtil {
 
   gridPane.add(new Button("Member"){
     onAction = (event: javafx.event.ActionEvent) => {
-      logger.log(logger.INFO, this.getClass.getSimpleName, "To member button")
+      primaryStage.scene_=((new MemberMenu).getScene)
     }
   }, 1, 1)
 }
