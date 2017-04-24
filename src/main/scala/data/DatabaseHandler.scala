@@ -32,7 +32,10 @@ class DatabaseHandler {
     "id" -> "integer PRIMARY KEY AUTOINCREMENT",
     "forename" -> "varchar(255)",
     "surname" -> "varchar(255)",
-    "handicap" -> "integer"
+    "housenumber" -> "varchar(20)",
+    "postcode" -> "varchar(7)",
+    "indoorclassification" -> "varchar(1)",
+    "outdoorclassification" -> "varchar(16)"
   ))
 
   //Round scores storage

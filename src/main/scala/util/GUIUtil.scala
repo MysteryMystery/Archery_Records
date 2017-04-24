@@ -4,11 +4,10 @@ import data.{ConfigLoader, DatabaseHandler}
 
 import scala.sys.process.ProcessBuilder.URLBuilder
 import scalafx.geometry.{Insets, Pos, Rectangle2D}
-import scalafx.scene.Scene
+import scalafx.scene.{Node, Parent, Scene}
 import scalafx.scene.layout.{GridPane, Region}
 import scalafx.scene.text.Text
 import scalafx.stage.Screen
-
 import ArcheryRecords._
 
 
@@ -24,6 +23,7 @@ trait GUIUtil {
   protected var gridPane: GridPane = generateGridPane
 
   protected var sceneTitle: Text
+
 
   def getScene: Scene = {
     sceneTitle.setId("sceneTitle")
@@ -51,7 +51,7 @@ trait GUIUtil {
 
   protected def generateGridPane: GridPane = {
     val pane: GridPane = new GridPane
-    pane.setAlignment(Pos.CENTER)
+    pane.setAlignment(Pos.Center)
     pane.setHgap(10)
     pane.setVgap(10)
     pane.setPadding(Insets(25))

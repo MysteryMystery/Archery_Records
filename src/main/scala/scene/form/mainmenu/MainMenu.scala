@@ -7,7 +7,7 @@ import scalafx.event.ActionEvent
 import scalafx.scene.control.Button
 import scalafx.scene.text.Text
 import ArcheryRecords._
-import scene.form.member.MemberMenu
+import scene.form.member.{AddMember}
 
 /**
   * Project: Archery_Records
@@ -16,10 +16,13 @@ import scene.form.member.MemberMenu
   */
 class MainMenu extends GUIUtil with ScriptingUtil {
   override var sceneTitle: Text = new Text("Main Menu")
+  gridPane.add(new Text("Click the entity which you would like to manage: "), 1, 1, 2, 1)
 
-  gridPane.add(new Button("Member"){
+  gridPane.add(new Button("Add Member"){
     onAction = (event: javafx.event.ActionEvent) => {
-      primaryStage.scene_=((new MemberMenu).getScene)
+      primaryStage.scene_=((new AddMember).getScene)
     }
-  }, 1, 1)
+  }, 1, 2)
+
+
 }
