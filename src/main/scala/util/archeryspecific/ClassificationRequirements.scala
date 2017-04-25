@@ -10,6 +10,10 @@ import Classifications._
   */
 
 /*
+  A class that stores all of the data relating to the score needed to gain a classification for each round/category
+ */
+
+/*
   http://www.archerygb.org/downloads/20111024ProposedClassificationtables2012.pdf
 
   object Gender:
@@ -19,12 +23,12 @@ import Classifications._
       ...
     object AgeGroup2:
       rounds....
-
+    //TODO intialise all round names with classifications for each category
  */
 object ClassificationRequirements {
 
   object Male{
-    object Adult extends Commons{
+    object Adult extends RoundNames{
       york = Map[String, Int](
         getGrandMasterBowman -> 1146,
         getMasterBowman -> 1065,
@@ -35,49 +39,50 @@ object ClassificationRequirements {
       )
     }
 
-    object Under18 extends Commons{
+    object Under18 extends RoundNames{
 
     }
 
-    object Under16 extends Commons{
+    object Under16 extends RoundNames{
 
     }
 
-    object  Under14 extends Commons{
+    object  Under14 extends RoundNames{
 
     }
 
-    object Under12 extends Commons{
+    object Under12 extends RoundNames{
 
     }
 
   }
 
   object Female{
-    object Adult extends Commons{
+    object Adult extends RoundNames{
 
     }
 
-    object Under18 extends Commons{
+    object Under18 extends RoundNames{
 
     }
 
-    object Under16 extends Commons{
+    object Under16 extends RoundNames{
 
     }
 
-    object  Under14 extends Commons{
+    object  Under14 extends RoundNames{
 
     }
 
-    object Under12 extends Commons{
+    object Under12 extends RoundNames{
 
     }
 
   }
 }
 
-abstract class Commons{
+abstract class RoundNames{
+  //Indoor and outdoor rounds, setup beans properties to be initialised in parent objects
   @BeanProperty var york: Map[String, Int] = _
   @BeanProperty var hereford: Map[String, Int] = _
   @BeanProperty var bristol1: Map[String, Int] = _
@@ -91,6 +96,8 @@ abstract class Commons{
   @BeanProperty var shortWindsor: Map[String, Int] = _
   @BeanProperty var juniorWindsor: Map[String, Int] = _
   @BeanProperty var shortJuniorWindsor: Map[String, Int] = _
+
+  //TODO add all rounds
 }
 
 object test{
