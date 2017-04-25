@@ -96,7 +96,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="SBT: com.itextpdf:itextpdf:5.5.6:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.poi:poi:3.16-beta2:jar" level="project" />
   </component>
 </module>

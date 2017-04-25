@@ -21,8 +21,6 @@ libraryDependencies += "com.lowagie" % "itext" % "4.2.1"
 
 libraryDependencies += "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.6"
 
-
-
 fork := true
 
 //sbt assembly - command to run in sbt console to build standalone
