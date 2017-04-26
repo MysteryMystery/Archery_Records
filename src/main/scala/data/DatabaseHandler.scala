@@ -8,8 +8,8 @@ import java.sql.{Connection, DriverManager, PreparedStatement, ResultSet}
 import exception.CustomDatabaseExeption
 
 import scala.collection.mutable.ListBuffer
-
-import ArcheryRecords.{logger, debug}
+import ArcheryRecords.{debug, logger}
+import util.archeryspecific.ClassificationRequirements
 /**
   * Created by USER on 07/03/2017.
   */
@@ -39,10 +39,13 @@ class DatabaseHandler {
   ))
 
   //Round scores storage
-  createTable("portsmouth", Map(
-    "archerID" -> "integer PRIMARY KEY",
-    "score" -> "integer"
-  ))
+  for (i <- ClassificationRequirements.Male.Adult.allRounds){
+    createTable(i, Map(
+      "archerID" -> "integer PRIMARY KEY",
+      "bowtype" -> "varchar(1)",
+      "score" -> "integer"
+    ))
+  }
 
   //badge claimed storage
 

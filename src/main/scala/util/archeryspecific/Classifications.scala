@@ -11,27 +11,15 @@ package util.archeryspecific
  */
 
 object Classifications {
-  private val THIRD_CLASS: String = "3rd Class"
-  private val SECOND_CLASS: String = "2nd Class"
-  private val FIRST_CLASS: String = "1st Class"
-  private val BOWMAN: String = "Bowman"
-  private val JUNIOR_BOWMAN: String = "Junior Bowman"
-  private val MASTER_BOWMAN: String = "Master Bowman"
-  private val JUNIOR_MASTER_BOWMAN: String = "Junior Master Bowman"
-  private val GRAND_MASTER_BOWMAN: String = "Grand Master Bowman"
+  val THIRD_CLASS: String = "3rd Class"
+  val SECOND_CLASS: String = "2nd Class"
+  val FIRST_CLASS: String = "1st Class"
+  val BOWMAN: String = "Bowman"
+  val JUNIOR_BOWMAN: String = "Junior Bowman"
+  val MASTER_BOWMAN: String = "Master Bowman"
+  val JUNIOR_MASTER_BOWMAN: String = "Junior Master Bowman"
+  val GRAND_MASTER_BOWMAN: String = "Grand Master Bowman"
 
-  private val JUNIOR_CLASSIFICATIONS = List(THIRD_CLASS, SECOND_CLASS, FIRST_CLASS, JUNIOR_BOWMAN, JUNIOR_MASTER_BOWMAN)
-  private val CLASSIFICIATIONS = List(THIRD_CLASS, SECOND_CLASS, FIRST_CLASS, BOWMAN, MASTER_BOWMAN, GRAND_MASTER_BOWMAN)
-
-  def getThirdClass: String = THIRD_CLASS
-  def getSecondClass: String = SECOND_CLASS
-  def getFirstClass: String = FIRST_CLASS
-  def getBowman: String = BOWMAN
-  def getJuniorBowman: String = JUNIOR_BOWMAN
-  def getMasterBowman: String = MASTER_BOWMAN
-  def getJuniorMasterBowman: String = JUNIOR_MASTER_BOWMAN
-  def getGrandMasterBowman: String = GRAND_MASTER_BOWMAN
-
-  def getJuniorClassifications: List[String] = JUNIOR_CLASSIFICATIONS
-  def getClassifications: List[String] = CLASSIFICIATIONS
+  val JUNIOR_CLASSIFICATIONS = List(THIRD_CLASS, SECOND_CLASS, FIRST_CLASS, JUNIOR_BOWMAN, JUNIOR_MASTER_BOWMAN)
+  val CLASSIFICIATIONS = List(THIRD_CLASS, SECOND_CLASS, FIRST_CLASS, BOWMAN, MASTER_BOWMAN, GRAND_MASTER_BOWMAN)
 }

@@ -30,12 +30,12 @@ object ClassificationRequirements {
   object Male{
     object Adult extends RoundNames{
       york = Map[String, Int](
-        getGrandMasterBowman -> 1146,
-        getMasterBowman -> 1065,
-        getBowman -> 913,
-        getFirstClass -> 698,
-        getSecondClass -> 511,
-        getThirdClass -> 283
+        GRAND_MASTER_BOWMAN -> 1146,
+        MASTER_BOWMAN -> 1065,
+        BOWMAN -> 913,
+        FIRST_CLASS -> 698,
+        SECOND_CLASS -> 511,
+        THIRD_CLASS -> 283
       )
     }
 
@@ -92,12 +92,97 @@ abstract class RoundNames{
   @BeanProperty var bristol5: Map[String, Int] = _
   @BeanProperty var stGeorge: Map[String, Int] = _
   @BeanProperty var albion: Map[String, Int] = _
-  @BeanProperty var windor: Map[String, Int] = _
+  @BeanProperty var windsor: Map[String, Int] = _
   @BeanProperty var shortWindsor: Map[String, Int] = _
   @BeanProperty var juniorWindsor: Map[String, Int] = _
   @BeanProperty var shortJuniorWindsor: Map[String, Int] = _
 
   //TODO add all rounds
+
+  val allOutdoorImperialRounds: List[String] = List(
+    "york",
+    "hereford",
+    "bristol2",
+    "bristol3",
+    "bristol4",
+    "bristol5",
+    "stgeorge",
+    "albion",
+    "windsor",
+    "shortwindsor",
+    "juniorwindsor",
+    "shortjuniorwindsor",
+    "newwestern",
+    "longwestern",
+    "western",
+    "shortwestern",
+    "newwestern",
+    "longwestern",
+    "western",
+    "shortwestern",
+    "juniorwestern",
+    "shortjuniorwestern",
+    "american",
+    "stnicolas",
+    "newnational",
+    "longnational",
+    "national",
+    "shortnational",
+    "juniornational",
+    "shortjuniornational",
+    "newwarwick",
+    "warwick",
+    "shortwarwick",
+    "juniorwarwick",
+    "shortjuniorwarwick"
+  )
+
+  val allOutdoorMetricRounds: List[String] = List(
+    "fitagents",
+    "fitaladies",
+    "metric1",
+    "metrictwo",
+    "metric3",
+    "metric4",
+    "metric5",
+    "longmetric",
+    "longmetric1",
+    "longmetric2",
+    "longmetric3",
+    "longmetric4",
+    "longmetric5",
+    "shortmetric",
+    "shortmetric1",
+    "shortmetric2",
+    "shortmetric3",
+    "shortmetric4",
+    "shortmetric5",
+    "halffita",
+    "halfmetric1",
+    "halfmetric2",
+    "halfmetric3",
+    "halfmetric4",
+    "halfmetric5",
+    "fitastandardbow",
+    "olympic",
+    "fita900",
+    "fita720"
+  )
+
+  val allIndoorRounds: List[String] = List(
+    "bray1",
+    "bray2",
+    "stafford",
+    "portsmouth",
+    "worcester",
+    "vegas",
+    "fita18",
+    "fita25",
+    "combinedfita",
+    "matchround1"
+  )
+
+  val allRounds: List[String] = allOutdoorMetricRounds ++ allOutdoorImperialRounds ++ allIndoorRounds
 }
 
 object test{
