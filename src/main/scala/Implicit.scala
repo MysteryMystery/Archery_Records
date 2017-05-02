@@ -1,4 +1,5 @@
 import scala.util.Try
+import scalafx.scene.layout.{GridPane, Pane, Region}
 
 /**
   * Project: Archery_Records
@@ -36,6 +37,24 @@ package object Implicit {
         }
       }
       true
+    }
+  }
+
+  implicit class PaneHelper(val string: String) extends GridPane{
+    def addInRow(startingColumn:Int, row:Int, columnSpan:Int, rowSpan:Int, components: Region*): Unit ={
+      var col = startingColumn
+      for(component: Region <- components){
+        add(component, col, row)
+        col += 1
+      }
+    }
+
+    def addInCol(column:Int, startingrow:Int, columnSpan:Int, rowSpan:Int, components: Region*): Unit ={
+      var row = startingrow
+      for(component: Region <- components){
+        add(component, column, row)
+        row += 1
+      }
     }
   }
 }

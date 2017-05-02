@@ -24,25 +24,25 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="SBT: commons-io:commons-io:2.5:jar" level="project" />
-    <orderEntry type="library" name="SBT: com.itextpdf:itextpdf:5.5.6:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.poi:poi:3.16-beta2:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.apache.commons:commons-collections4:4.1:jar" level="project" />
-    <orderEntry type="library" name="SBT: commons-codec:commons-codec:1.10:jar" level="project" />
-    <orderEntry type="library" name="SBT: com.google.code.gson:gson:2.8.0:jar" level="project" />
     <orderEntry type="module-library">
       <library name="SBT: unmanaged-jars">
         <CLASSES>
-          <root url="jar://C:/Program Files/Java/jdk1.8.0_65/jre/lib/ext/jfxrt.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../null/jre/lib/ext/jfxrt.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="SBT: org.yaml:snakeyaml:1.8:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.xerial:sqlite-jdbc:3.7.2:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.scalafx:scalafx_2.12:8.0.102-R11:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.12.1:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.12.1:jar" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang.modules:scala-xml_2.11:1.0.6:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.12.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.12.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.scalafx:scalafx_2.12:8.0.102-R11:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.xerial:sqlite-jdbc:3.7.2:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.yaml:snakeyaml:1.8:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.google.code.gson:gson:2.8.0:jar" level="project" />
+    <orderEntry type="library" name="SBT: commons-codec:commons-codec:1.10:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.commons:commons-collections4:4.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.poi:poi:3.16-beta2:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.itextpdf:itextpdf:5.5.6:jar" level="project" />
   </component>
 </module>

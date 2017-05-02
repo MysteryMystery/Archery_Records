@@ -20,6 +20,9 @@ libraryDependencies += "org.apache.poi" % "poi" % "3.16-beta2"
 libraryDependencies += "com.lowagie" % "itext" % "4.2.1"
 
 libraryDependencies += "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.6"
+// https://mvnrepository.com/artifact/com.google.code.gson/gson
+libraryDependencies += "com.google.code.gson" % "gson" % "2.8.0"
+
 
 fork := true
 

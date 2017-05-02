@@ -10,6 +10,7 @@ import exception.CustomDatabaseExeption
 import scala.collection.mutable.ListBuffer
 import ArcheryRecords.{debug, logger}
 import util.archeryspecific.ClassificationRequirements
+import util.personspecific.Member
 /**
   * Created by USER on 07/03/2017.
   */
@@ -143,5 +144,14 @@ class DatabaseHandler {
     preparedStatement.setString(1, username)
     preparedStatement.setString(2, password)
     preparedStatement.executeQuery()
+  }
+
+  //Get resultset -> put all rows into list in form of new Member(fields)
+  def getAllMembers(): List[Member] ={
+    var x: ListBuffer[Member] = ListBuffer[Member]()
+    for (y <- 0 to 15){
+      x.append(new Member)
+    }
+    x.toList
   }
 }
