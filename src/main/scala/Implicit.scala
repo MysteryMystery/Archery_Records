@@ -40,7 +40,7 @@ package object Implicit {
     }
   }
 
-  implicit class PaneHelper(val string: String) extends GridPane{
+  implicit class PaneHelper(val string: GridPane) extends GridPane{
     def addInRow(startingColumn:Int, row:Int, columnSpan:Int, rowSpan:Int, components: Region*): Unit ={
       var col = startingColumn
       for(component: Region <- components){
