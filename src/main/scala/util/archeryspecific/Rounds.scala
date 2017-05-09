@@ -21,31 +21,29 @@ object Rounds {
   val UNDER12: String = "U12"
 
   //Either convert into hashmap or individual variables due to accessibility
-  val rounds: List[Object] = List(
-    new ImperialRound("York",        6, 4, 2, 0, 0, 0, 0, 0, ADULT, ADULT),
-    new ImperialRound("Hereford",    0, 6, 4, 2, 0, 0, 0, 0 , UNDER18, ADULT),
-    new ImperialRound("Bristol II",  0, 0, 6, 4, 2, 0, 0, 0, UNDER16, UNDER18),
-    new ImperialRound("Bristol III", 0, 0, 0, 6, 4, 2, 0, 0, UNDER14, UNDER16),
-    new ImperialRound("Bristol IV",  0, 0, 0, 0, 6, 4, 2, 0, UNDER12, UNDER14),
-    new ImperialRound("Bristol V",   0, 0, 0, 0, 0, 6, 4, 2, null, UNDER12),
+  val york: ImperialRound =     new ImperialRound("York",        6, 4, 2, 0, 0, 0, 0, 0, ADULT, ADULT)
+  val hereford: ImperialRound = new ImperialRound("Hereford",    0, 6, 4, 2, 0, 0, 0, 0 , UNDER18, ADULT)
+  val bristol2: ImperialRound= new ImperialRound("Bristol II",  0, 0, 6, 4, 2, 0, 0, 0, UNDER16, UNDER18)
+  val bristol3: ImperialRound = new ImperialRound("Bristol III", 0, 0, 0, 6, 4, 2, 0, 0, UNDER14, UNDER16)
+  val bristol4: ImperialRound = new ImperialRound("Bristol IV",  0, 0, 0, 0, 6, 4, 2, 0, UNDER12, UNDER14)
+  val bristol5: ImperialRound = new ImperialRound("Bristol V",   0, 0, 0, 0, 0, 6, 4, 2, null, UNDER12)
 
-    new ImperialRound("St. George",           3, 3, 3, 0, 0, 0, 0, 0, ADULT, ADULT),
-    new ImperialRound("Albion",               0, 3, 3, 3, 0, 0, 0, 0, ADULT, ADULT),
-    new ImperialRound("Windsor",              0, 0, 3, 3, 3, 0, 0, 0, ADULT, ADULT),
-    new ImperialRound("Short Windsor",        0, 0, 0, 3, 3, 3, 0, 0, UNDER16, UNDER18),
-    new ImperialRound("Junior Windsor",       0, 0, 0, 0, 3, 3, 3, 0, UNDER14, UNDER16),
-    new ImperialRound("Short Junior Windsor", 0, 0, 0, 0, 0, 3, 3, 3, null, UNDER12),
+  val stGeorg: ImperialRound =              new ImperialRound("St. George",           3, 3, 3, 0, 0, 0, 0, 0, ADULT, ADULT)
+  val albion: ImperialRound =               new ImperialRound("Albion",               0, 3, 3, 3, 0, 0, 0, 0, ADULT, ADULT)
+  val windsor: ImperialRound =              new ImperialRound("Windsor",              0, 0, 3, 3, 3, 0, 0, 0, ADULT, ADULT)
+  val windsor_short: ImperialRound =        new ImperialRound("Short Windsor",        0, 0, 0, 3, 3, 3, 0, 0, UNDER16, UNDER18)
+  val windsor_junior: ImperialRound =       new ImperialRound("Junior Windsor",       0, 0, 0, 0, 3, 3, 3, 0, UNDER14, UNDER16)
+  val windsor_short_junior: ImperialRound = new ImperialRound("Short Junior Windsor", 0, 0, 0, 0, 0, 3, 3, 3, null, UNDER12)
 
-    new ImperialRound("New Western",          4, 4, 0, 0, 0, 0, 0, 0, ADULT, ADULT),
-    new ImperialRound("Long Western",         0, 4, 4, 0, 0, 0, 0, 0, ADULT, ADULT),
-    new ImperialRound("Western",              0, 0, 4, 4, 0, 0, 0, 0, ADULT, ADULT),
-    new ImperialRound("Short Western",        0, 0, 0, 4, 4, 0, 0, 0, UNDER16, UNDER18),
-    new ImperialRound("Junior Western",       0, 0, 0, 0, 4, 4, 0, 0, UNDER14, UNDER16),
-    new ImperialRound("Short Junior Western", 0, 0, 0, 0, 0, 4, 4, 0, UNDER12, UNDER14),
+  val western_new: ImperialRound =          new ImperialRound("New Western",          4, 4, 0, 0, 0, 0, 0, 0, ADULT, ADULT)
+  val western_long: ImperialRound =         new ImperialRound("Long Western",         0, 4, 4, 0, 0, 0, 0, 0, ADULT, ADULT)
+  val western: ImperialRound =              new ImperialRound("Western",              0, 0, 4, 4, 0, 0, 0, 0, ADULT, ADULT)
+  val western_short: ImperialRound =        new ImperialRound("Short Western",        0, 0, 0, 4, 4, 0, 0, 0, UNDER16, UNDER18)
+  val western_junior: ImperialRound =       new ImperialRound("Junior Western",       0, 0, 0, 0, 4, 4, 0, 0, UNDER14, UNDER16)
+  val western_short_junior: ImperialRound = new ImperialRound("Short Junior Western", 0, 0, 0, 0, 0, 4, 4, 0, UNDER12, UNDER14)
 
-    new ImperialRound("American", 0, 0, 2.5, 2.5, 2.5, 0, 0, 0, ADULT, ADULT),
-    new ImperialRound("St. Nicholas", 0, 0, 0, 0, 4, 3, 0, 0, UNDER14, UNDER16)
-  )
+  val american: ImperialRound =   new ImperialRound("American", 0, 0, 2.5, 2.5, 2.5, 0, 0, 0, ADULT, ADULT)
+  val stNicholas: ImperialRound = new ImperialRound("St. Nicholas", 0, 0, 0, 0, 4, 3, 0, 0, UNDER14, UNDER16)
 }
 
 class ImperialRound(n: String, Hundred: Double, Eighty: Double, Sixty: Double, Fifty: Double, Forty: Double, Thirty: Double, Twenty: Double, Ten: Double, Gents: String, Ladies: String) {

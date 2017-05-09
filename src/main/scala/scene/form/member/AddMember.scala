@@ -15,6 +15,7 @@ class AddMember extends GUIUtil{
 
   addInCol(0, 1, 1, 1,
     forenameLabel,
-    surnameLabel
+    surnameLabel,
+    handicapLabel
   )
 }
