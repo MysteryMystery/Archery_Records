@@ -48,17 +48,17 @@ object Rounds {
 
 class ImperialRound(n: String, Hundred: Double, Eighty: Double, Sixty: Double, Fifty: Double, Forty: Double, Thirty: Double, Twenty: Double, Ten: Double, Gents: String, Ladies: String) {
   val name: String = n
-  val hundred: Double = hundred
-  val eighty: Double = eighty
-  val sixty: Double = sixty
-  val fifty: Double = fifty
-  val forty: Double = forty
-  val thirty: Double = thirty
-  val twenty: Double = twenty
-  val ten: Double = ten
+  val hundred: Double = Hundred
+  val eighty: Double = Eighty
+  val sixty: Double = Sixty
+  val fifty: Double = Fifty
+  val forty: Double = Forty
+  val thirty: Double = Thirty
+  val twenty: Double = Twenty
+  val ten: Double = Ten
   val total: Double = hundred + eighty + sixty + fifty + forty + thirty + twenty + ten
-  val gents: String = gents
-  val ladies: String = ladies
+  val gents: String = Gents
+  val ladies: String = Ladies
 }
 
 class MetricRound(Name: String, _122f90: Double, _122f70: Double, _122f60: Double, _122f50: Double, _122f40:Double, _122f30: Double, _122f20: Double,

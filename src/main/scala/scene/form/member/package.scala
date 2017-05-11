@@ -11,12 +11,27 @@ import scalafx.scene.control.{Button, Label, TextField}
   * Package: scene.form.member
   * Created by MysteryMystery under the MIT Liscense.
   */
+
+/*"id" -> "integer PRIMARY KEY AUTOINCREMENT",
+"forename" -> "varchar(255)",
+"surname" -> "varchar(255)",
+"housenumber" -> "varchar(20)",
+"postcode" -> "varchar(7)",
+"indoorclassification" -> "varchar(1)",
+"outdoorclassification" -> "varchar(16)"*/
+
 package object member {
   //Headers
   val idLabel: Label = new Label("ID: ")
   val forenameLabel: Label = new Label("Forename: ")
   val surnameLabel: Label = new Label("Surname: ")
-  val handicapLabel: Label = new Label("Initial Handicap: ")
+  val houseNumberLabel: Label = new Label("House Number: ")
+  val postcodeLabel: Label = new Label("PostCode: ")
+  val indoorClassLabel: Label = new Label("Initial Indoor\nClassification: ")
+  val outdoorClassLabel: Label = new Label("Initial Outdoor\nClassification: ")
+  val warningText: Label = new Label(""){
+    id = "warning"
+  }
 
   //Entries
   val forenameEntry: TextField = new TextField(){
@@ -28,6 +43,18 @@ package object member {
   val handicapEntry: TextField = new TextField(){
     promptText = "6"
   }
+  val houseNumberEntry: TextField = new TextField(){
+    promptText = "12"
+  }
+  val postCodeEntry: TextField = new TextField(){
+    promptText = "LL99 2GQ"
+  }
+  val indoorClassEntry: TextField = new TextField(){
+    promptText = "F"
+  }
+  val outdoorClassEntry: TextField = new TextField(){
+    promptText = "Master Bowman"
+  }
 
   //Buttons
   val back: Button = new Button("Back"){
@@ -37,6 +64,7 @@ package object member {
   }
 
   val submit: Button = new Button("Submit"){
+    defaultButton = true
     onAction = (event: ActionEvent) => {
       println(event.getTarget)
     }

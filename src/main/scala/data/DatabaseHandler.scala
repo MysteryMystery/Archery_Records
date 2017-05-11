@@ -146,12 +146,33 @@ class DatabaseHandler {
     preparedStatement.executeQuery()
   }
 
-  //Get resultset -> put all rows into list in form of new Member(fields)
-  def getAllMembers(): List[Member] ={
-    var x: ListBuffer[Member] = ListBuffer[Member]()
-    for (y <- 0 to 15){
-      x.append(new Member)
+//  //Get resultset -> put all rows into list in form of new Member(fields)
+//  def getAllMembers(): List[Member] ={
+//    var x: ListBuffer[Member] = ListBuffer[Member]()
+//    for (y <- 0 to 15){
+//      x.append(new Member)
+//    }
+//    x.toList
+//  }
+
+  def getAllArcherNames(): List[String] = {
+    var preparedStatement: PreparedStatement = connection.prepareStatement("SELECT forename, surname FROM archer;")
+    var rs: ResultSet = preparedStatement.executeQuery()
+    var toReturn: ListBuffer[String] =  ListBuffer()
+    while (rs.next()){
+      toReturn.append(s"${rs.getString(1)} ${rs.getString(2)}")
     }
-    x.toList
+    toReturn.toList
+  }
+
+  def insertArcher(forename: String, surname: String, housenumber: String, postcode: String, indoorClass: String = "", outdoorClass: String = ""): Unit ={
+    insert("archer", Map(
+      "forename" -> forename,
+      "surname" -> surname,
+      "housenumber" -> housenumber,
+      "postcode" -> postcode,
+      "indoorclassification" -> indoorClass,
+      "outdoorclassification" -> outdoorClass
+    ))
   }
 }

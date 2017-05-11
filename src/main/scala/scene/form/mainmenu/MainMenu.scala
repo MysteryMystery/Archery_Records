@@ -4,13 +4,13 @@ import data.{ConfigLoader, DatabaseHandler}
 import util.{GUIUtil, ScriptingUtil}
 
 import scalafx.event.ActionEvent
-import scalafx.scene.control.{Button, ScrollPane}
+import scalafx.scene.control.{Button, ScrollPane, TableView}
 import scalafx.scene.text.Text
 import ArcheryRecords._
 import scene.form.member.AddMember
 import util.personspecific.Member
 
-import scalafx.geometry.{Insets, Pos}
+import scalafx.geometry.{Insets, Orientation, Pos}
 import scalafx.scene.layout.{Background, GridPane}
 
 /**
@@ -39,7 +39,9 @@ class MainMenu extends GUIUtil with ScriptingUtil {
   override var sceneTitle: Text = new Text("Main Menu")
 
   var memberListPane: ScrollPane = new ScrollPane()
-  var memberListGrid: GridPane = new GridPane()
+  var memberListGrid: GridPane = new GridPane(){
+    alignment = Pos.TopCenter
+  }
   var roundListPane: ScrollPane = new ScrollPane()
   var roundListGrid: GridPane = new GridPane()
 
@@ -54,9 +56,9 @@ class MainMenu extends GUIUtil with ScriptingUtil {
     id = "sceneTitle"
   }, 0, 0)
   var z: Int = 0
-  for (x: Member <- databaseHandler.getAllMembers()){
+  for (x: String <- databaseHandler.getAllArcherNames()){
     z += 1
-    memberListGrid.add(new Text(x.name), 0, z)
+    memberListGrid.add(new Text(x), 0, z)
   }
 
   memberListPane.content = memberListGrid

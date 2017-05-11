@@ -1,12 +1,14 @@
+package util
+
 import scala.util.Try
-import scalafx.scene.layout.{GridPane, Pane, Region}
+import scalafx.scene.layout.{GridPane, Region}
 
 /**
   * Project: Archery_Records
   * Package: 
   * Created by MysteryMystery under the MIT Liscense.
   */
-package object Implicit {
+object ImplicitHelpers {
   implicit class PackageHelpers(val string: String) extends AnyVal{
     def isAllDigits(): Boolean = {
       Try(string.toDouble).isSuccess
@@ -37,6 +39,10 @@ package object Implicit {
         }
       }
       true
+    }
+
+    def isPostCode(): Boolean = {
+      string.matches("^[a-zA-Z]{2}\\d\\d \\d[a-zA-Z]{2}")
     }
   }
 
