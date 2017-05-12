@@ -27,8 +27,8 @@ package object member {
   val surnameLabel: Label = new Label("Surname: ")
   val houseNumberLabel: Label = new Label("House Number: ")
   val postcodeLabel: Label = new Label("PostCode: ")
-  val indoorClassLabel: Label = new Label("Initial Indoor\nClassification: ")
-  val outdoorClassLabel: Label = new Label("Initial Outdoor\nClassification: ")
+  val indoorClassLabel: Label = new Label("Indoor\nClassification: ")
+  val outdoorClassLabel: Label = new Label("Outdoor\nClassification: ")
   val warningText: Label = new Label(""){
     id = "warning"
   }

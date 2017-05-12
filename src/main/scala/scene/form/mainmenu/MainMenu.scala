@@ -1,16 +1,23 @@
 package scene.form.mainmenu
 
+import java.lang.reflect.Field
+import javafx.collections.FXCollections
+
 import data.{ConfigLoader, DatabaseHandler}
 import util.{GUIUtil, ScriptingUtil}
 
 import scalafx.event.ActionEvent
-import scalafx.scene.control.{Button, ScrollPane, TableView}
+import scalafx.scene.control.{Button, ListView, ScrollPane, TableView}
 import scalafx.scene.text.Text
 import ArcheryRecords._
-import scene.form.member.AddMember
+import scene.form.member.{AddMember, DisplayMember}
 import util.personspecific.Member
+import util.ImplicitHelpers
+import util.archeryspecific.{ImperialRound, Rounds}
 
+import scalafx.collections.ObservableBuffer
 import scalafx.geometry.{Insets, Orientation, Pos}
+import scalafx.scene.input.MouseEvent
 import scalafx.scene.layout.{Background, GridPane}
 
 /**
@@ -39,11 +46,20 @@ class MainMenu extends GUIUtil with ScriptingUtil {
   override var sceneTitle: Text = new Text("Main Menu")
 
   var memberListPane: ScrollPane = new ScrollPane()
-  var memberListGrid: GridPane = new GridPane(){
-    alignment = Pos.TopCenter
+
+  var memberListView: ListView[String] = new ListView[String](){
+    onMouseClicked = (event: javafx.scene.input.MouseEvent) => {
+      if (event.getClickCount == 2){
+        val selectedItems = memberListView.getSelectionModel.getSelectedItem.split(" ")
+        ArcheryRecords.logger.log(ArcheryRecords.logger.DEBUG, this.getClass.getName, s"Selected Item: ${selectedItems.mkString(" ")}")
+
+        primaryStage.scene = new DisplayMember(databaseHandler.getArcher(selectedItems(0).replace(".", ""), selectedItems(1), selectedItems(2), null, null, null, null)) getScene
+      }
+    }
+
   }
   var roundListPane: ScrollPane = new ScrollPane()
-  var roundListGrid: GridPane = new GridPane()
+  var roundListView: ListView[String] = new ListView[String]()
 
   var buttonsGrid: GridPane = new GridPane(){
     alignment = Pos.Center
@@ -52,17 +68,23 @@ class MainMenu extends GUIUtil with ScriptingUtil {
     padding = Insets(10)
   }
 
-  memberListGrid.add(new Text("Members"){
-    id = "sceneTitle"
-  }, 0, 0)
-  var z: Int = 0
+  var memberListViewContents = new ObservableBuffer[String]()
+  var n = 0
   for (x: String <- databaseHandler.getAllArcherNames()){
-    z += 1
-    memberListGrid.add(new Text(x), 0, z)
+    n += 1
+    memberListViewContents.append(x)
   }
+  memberListView.items = memberListViewContents
 
-  memberListPane.content = memberListGrid
-  roundListPane.content = roundListGrid
+  var roundListViewContents = new ObservableBuffer[String]()
+  for (x: ImperialRound <- Rounds.getImperial()){
+    roundListViewContents.append(x.name)
+  }
+  roundListView.items = roundListViewContents
+
+  //memberListPane.content = memberListGrid
+  memberListPane.content = memberListView
+  roundListPane.content = roundListView
 
   memberListPane.fitToHeight = true
   roundListPane.fitToHeight = true
@@ -70,8 +92,6 @@ class MainMenu extends GUIUtil with ScriptingUtil {
   roundListPane.maxWidth = 300
   roundListPane.prefHeight = Double.MaxValue
   memberListPane.prefHeight = Double.MaxValue
-
-  roundListGrid.add(new Text("Rounds"){id = "sceneTitle"}, 0, 0)
 
   buttonsGrid.add( new Button("Add Member"){
     onAction = (event: javafx.event.ActionEvent) => {
@@ -94,35 +114,9 @@ class MainMenu extends GUIUtil with ScriptingUtil {
     }
   },0, 3)
 
-  gridPane.add(memberListPane, 0, 1, 1, 5)
-  gridPane.add(roundListPane, 2, 1, 1, 5)
+  gridPane.add(new Text("Members"){id="title"}, 0, 1, 1, 1)
+  gridPane.add(memberListPane, 0, 2, 1, 5)
+  gridPane.add(new Text("Rounds"){id = "title"}, 2, 1, 1, 1)
+  gridPane.add(roundListPane, 2, 2, 1, 5)
   gridPane.add(buttonsGrid, 3, 1, 1, 5)
-/*
-  addInCol(
-    4, 3, 1, 1,
-    new Button("Add Member"){
-      onAction = (event: javafx.event.ActionEvent) => {
-        primaryStage.scene = new AddMember getScene
-      }
-    },
-    new Button("Search Member"){
-      onAction = (event: javafx.event.ActionEvent) => {
-        System.out.println("Search Member")
-      }
-    },
-    new Button("Edit Member"){
-      onAction = (event: javafx.event.ActionEvent) => {
-        System.out.println("Edit Member")
-      }
-    },
-    new Button("Delete Member"){
-      onAction = (event: javafx.event.ActionEvent) => {
-        System.out.println("Delete Member")
-      }
-    }
-  )
-  addInCol(5, 1, 1, 1,
-    new Button("Add new score")
-  )
-  */
 }

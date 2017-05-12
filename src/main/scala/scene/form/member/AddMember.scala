@@ -13,6 +13,8 @@ import util.ImplicitHelpers._
   */
 class AddMember extends GUIUtil{
   override protected var sceneTitle: Text = new Text("Add Member")
+  indoorClassLabel.text = "Initial Indoor\nClassification: "
+  outdoorClassLabel.text = "Initial Outdoor\nClassification: "
 
   submit.onAction = (event: javafx.event.ActionEvent) => {
     if (forenameEntry.text.value == "" || surnameEntry.text.value == ""){

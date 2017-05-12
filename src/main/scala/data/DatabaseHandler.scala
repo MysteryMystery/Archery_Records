@@ -11,6 +11,8 @@ import scala.collection.mutable.ListBuffer
 import ArcheryRecords.{debug, logger}
 import util.archeryspecific.ClassificationRequirements
 import util.personspecific.Member
+
+import scala.collection.mutable
 /**
   * Created by USER on 07/03/2017.
   */
@@ -21,7 +23,7 @@ class DatabaseHandler {
   connection.setAutoCommit(true)
 
   //User accounts
-  createTable("account", Map(
+  createTable("account", mutable.LinkedHashMap(
     "id" -> "INTEGER PRIMARY KEY AUTOINCREMENT",
     "username" -> "varchar(255) COLLATE NOCASE",
     "password" -> "varchar(255)"
@@ -29,10 +31,10 @@ class DatabaseHandler {
 //"CREATE TABLE IF NOT EXISTS ACCOUNT(id INTEGER PRIMARY KEY, username VARCHAR(255) COLLATE NOCASE, password VARCHAR(256))"
 
   //Club members
-  createTable("archer", Map(
+  createTable("archer", mutable.LinkedHashMap(
     "id" -> "integer PRIMARY KEY AUTOINCREMENT",
-    "forename" -> "varchar(255)",
-    "surname" -> "varchar(255)",
+    "forename" -> "varchar(255) COLLATE NOCASE",
+    "surname" -> "varchar(255) COLLATE NOCASE",
     "housenumber" -> "varchar(20)",
     "postcode" -> "varchar(7)",
     "indoorclassification" -> "varchar(1)",
@@ -41,7 +43,7 @@ class DatabaseHandler {
 
   //Round scores storage
   for (i <- ClassificationRequirements.Male.Adult.allRounds){
-    createTable(i, Map(
+    createTable(i, mutable.LinkedHashMap(
       "archerID" -> "integer PRIMARY KEY",
       "bowtype" -> "varchar(1)",
       "score" -> "integer"
@@ -51,7 +53,7 @@ class DatabaseHandler {
   //badge claimed storage
 
   //Round stats sotrage
-  createTable("rounds", Map(
+  createTable("rounds", mutable.LinkedHashMap(
     "roundName" -> "varchar(50)",
     "distance" -> "ARRAY"
   ))
@@ -64,7 +66,7 @@ class DatabaseHandler {
     return DriverManager.getConnection("jdbc:sqlite:data/test.db")
   }
 
-  private def createTable(tableName: String, columns: Map[String, String]): Unit = {
+  private def createTable(tableName: String, columns: mutable.LinkedHashMap[String, String]): Unit = {
     var query: String = "CREATE TABLE IF NOT EXISTS "
     query += tableName + " ("
     for (col: (String, String) <- columns){
@@ -156,11 +158,11 @@ class DatabaseHandler {
 //  }
 
   def getAllArcherNames(): List[String] = {
-    var preparedStatement: PreparedStatement = connection.prepareStatement("SELECT forename, surname FROM archer;")
+    var preparedStatement: PreparedStatement = connection.prepareStatement("SELECT id, forename, surname FROM archer;")
     var rs: ResultSet = preparedStatement.executeQuery()
     var toReturn: ListBuffer[String] =  ListBuffer()
     while (rs.next()){
-      toReturn.append(s"${rs.getString(1)} ${rs.getString(2)}")
+      toReturn.append(s"${rs.getString(1)}. ${rs.getString(2)} ${rs.getString(3)}")
     }
     toReturn.toList
   }
@@ -174,5 +176,67 @@ class DatabaseHandler {
       "indoorclassification" -> indoorClass,
       "outdoorclassification" -> outdoorClass
     ))
+  }
+
+  def getArcher(id: String, forename: String, surname: String, housenumber: String, postcode: String, indoorClass: String, outdoorClass: String): List[Member] = {
+    val toReturn: ListBuffer[Member] = ListBuffer()
+    var query: String = "SELECT * FROM ARCHER WHERE "
+    var args: ListBuffer[String] = ListBuffer()
+    if (id != null){
+      query += s"id = ? AND "
+      args += id
+    }
+    if (forename != null){
+      query += s"forename = ? AND "
+      args += forename
+    }
+    if (surname != null){
+      query += s"surname = ? AND "
+      args += surname
+    }
+    if (housenumber != null){
+      query += s"housenumber = ? AND "
+      args += housenumber
+    }
+    if (indoorClass != null){
+      query += s"indoorclassification = ? AND "
+      args += indoorClass
+    }
+    if (outdoorClass != null){
+      query += s"outdoorclassfication = ?"
+      args += outdoorClass
+    }
+
+    if (query.matches(".+ AND $")){
+      var temp = query.split(" ")
+      temp.update(temp.length - 1, "")
+      query = temp.mkString(" ")
+    }
+    query += ";"
+    System.out.println(query)
+
+    var preparedStatement: PreparedStatement = connection.prepareStatement(query)
+    for (i <- 0 until args.length ){
+      preparedStatement.setString(i+1, args(i))
+    }
+    val rs: ResultSet = preparedStatement.executeQuery()
+    while (rs.next()){
+      toReturn += new Member(
+        rs.getString(1),
+        rs.getString(2),
+        rs.getString(3),
+        rs.getString(4),
+        rs.getString(5),
+        rs.getString(6),
+        rs.getString(7)
+      )
+    }
+
+    System.out.println(args)
+    toReturn.toList
+  }
+
+  def editArcher(same: mutable.LinkedHashMap[String, String], different:mutable.LinkedHashMap[String, String]):Unit = {
+    System.out.println("EDIT")
   }
 }

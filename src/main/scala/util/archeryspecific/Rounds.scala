@@ -28,7 +28,7 @@ object Rounds {
   val bristol4: ImperialRound = new ImperialRound("Bristol IV",  0, 0, 0, 0, 6, 4, 2, 0, UNDER12, UNDER14)
   val bristol5: ImperialRound = new ImperialRound("Bristol V",   0, 0, 0, 0, 0, 6, 4, 2, null, UNDER12)
 
-  val stGeorg: ImperialRound =              new ImperialRound("St. George",           3, 3, 3, 0, 0, 0, 0, 0, ADULT, ADULT)
+  val stGeorge: ImperialRound =              new ImperialRound("St. George",           3, 3, 3, 0, 0, 0, 0, 0, ADULT, ADULT)
   val albion: ImperialRound =               new ImperialRound("Albion",               0, 3, 3, 3, 0, 0, 0, 0, ADULT, ADULT)
   val windsor: ImperialRound =              new ImperialRound("Windsor",              0, 0, 3, 3, 3, 0, 0, 0, ADULT, ADULT)
   val windsor_short: ImperialRound =        new ImperialRound("Short Windsor",        0, 0, 0, 3, 3, 3, 0, 0, UNDER16, UNDER18)
@@ -44,6 +44,10 @@ object Rounds {
 
   val american: ImperialRound =   new ImperialRound("American", 0, 0, 2.5, 2.5, 2.5, 0, 0, 0, ADULT, ADULT)
   val stNicholas: ImperialRound = new ImperialRound("St. Nicholas", 0, 0, 0, 0, 4, 3, 0, 0, UNDER14, UNDER16)
+
+  def getImperial(): List[ImperialRound] = {
+    List(york, hereford, bristol2, bristol3, bristol4, bristol5, stGeorge, albion, windsor, windsor_short, windsor_junior, windsor_short_junior, western_new, western_long, western, western_short, western_junior, western_short_junior, american, stNicholas)
+  }
 }
 
 class ImperialRound(n: String, Hundred: Double, Eighty: Double, Sixty: Double, Fifty: Double, Forty: Double, Thirty: Double, Twenty: Double, Ten: Double, Gents: String, Ladies: String) {
