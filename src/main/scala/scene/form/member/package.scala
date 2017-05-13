@@ -5,6 +5,7 @@ import javafx.event.ActionEvent
 import scene.form.mainmenu.MainMenu
 
 import scalafx.scene.control.{Button, Label, TextField}
+import scalafx.scene.text.Text
 
 /**
   * Project: Archery_Records
@@ -29,7 +30,7 @@ package object member {
   val postcodeLabel: Label = new Label("PostCode: ")
   val indoorClassLabel: Label = new Label("Indoor\nClassification: ")
   val outdoorClassLabel: Label = new Label("Outdoor\nClassification: ")
-  val warningText: Label = new Label(""){
+  val warningText: Text = new Text(""){
     id = "warning"
   }
 

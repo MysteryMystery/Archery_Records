@@ -2,10 +2,13 @@ package scene.form.member
 
 import util.{GUIUtil, ScriptingUtil}
 import util.personspecific.Member
+import ArcheryRecords.primaryStage
+import scene.form.round.AddRound
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 import scalafx.collections.ObservableBuffer
+import scalafx.event.ActionEvent
 import scalafx.geometry.Pos
 import scalafx.scene.control.{Button, Label, ListView}
 import scalafx.scene.text.Text
@@ -18,12 +21,6 @@ import scalafx.scene.text.Text
 
 class DisplayMember(members: List[Member]) extends GUIUtil with ScriptingUtil{
   override protected var sceneTitle: Text = new Text("Member")
-  val deleteButton: Button = new Button("Delete"){
-    alignment = Pos.CenterRight
-    onAction = (event: javafx.event.ActionEvent) => {
-      ArcheryRecords.logger.log(ArcheryRecords.logger.DEBUG, getClass.getSimpleName, "DELETE MEMBER (NYI)")
-    }
-  }
 
   if (members.length > 1){
     var lv: ListView[String] = new ListView[String]()
@@ -36,7 +33,27 @@ class DisplayMember(members: List[Member]) extends GUIUtil with ScriptingUtil{
     //TODO add button and listener that allows to go into next part of loop i.e select entity then call primarystage.scene = new DisplayMember(the one member) getScene
   }
   else {
+
     val member: Member = members.head
+
+    val deleteButton: Button = new Button("Delete"){
+      alignment = Pos.CenterRight
+      onAction = (event: javafx.event.ActionEvent) => {
+        databaseHandler.deleteArcher(member)
+        back.fire()
+      }
+    }
+    val viewRounds: Button = new Button("View Stats"){
+      onAction = (event: javafx.event.ActionEvent) => {
+        System.out.println("Go to rounds scene displaying all this archers score history, handicap etc")
+      }
+    }
+    val addRoundShotButton: Button = new Button("Add Round"){
+      onAction = (event: javafx.event.ActionEvent) =>{
+        primaryStage.scene = new AddRound(member) getScene
+
+      }
+    }
 
     forenameEntry.text = member.forename
     surnameEntry.text = member.surname
@@ -80,6 +97,7 @@ class DisplayMember(members: List[Member]) extends GUIUtil with ScriptingUtil{
         differentVars += ("outdoorclassification" -> outdoorClassEntry.text.value)
       }
       databaseHandler.editArcher(sameVars, differentVars)
+      warningText.text = "This archer has been eddited successfully."
     }
 
     addInCol(0, 1, 1, 1,
@@ -100,9 +118,14 @@ class DisplayMember(members: List[Member]) extends GUIUtil with ScriptingUtil{
       postCodeEntry,
       indoorClassEntry,
       outdoorClassEntry,
-      deleteButton,
       submit
     )
+    addInCol(2, 1, 1, 1,
+      deleteButton,
+      viewRounds,
+      addRoundShotButton
+    )
+    gridPane.add(warningText, 0, 10, 2, 1)
   }
 
 }

@@ -237,6 +237,34 @@ class DatabaseHandler {
   }
 
   def editArcher(same: mutable.LinkedHashMap[String, String], different:mutable.LinkedHashMap[String, String]):Unit = {
-    System.out.println("EDIT")
+
+    if (same.isEmpty || different.isEmpty){
+      return
+    }
+
+    var query: String = "UPDATE archer SET "
+    for (key: String <- different.keys){
+      query += s"${key} = ?, "
+    }
+    query = query.substring(0, query.length - 2)
+    query += " WHERE "
+    for (key: String <- same.keys){
+      query += s"$key = ? AND "
+    }
+    query = query.replaceFirst(" AND $", "") + ";"
+
+    val preparedStatement: PreparedStatement = connection.prepareStatement(query)
+    var counter: Int = 0
+    for (value: String <- different.values ++ same.values){
+      counter += 1
+      preparedStatement.setString(counter, value)
+    }
+    preparedStatement.execute()
+  }
+
+  def deleteArcher(archer: Member): Boolean = {
+    var preparedStatement: PreparedStatement = connection.prepareStatement("DELETE FROM archer WHERE id = ?;")
+    preparedStatement.setInt(1, archer.id.toInt)
+    preparedStatement.execute()
   }
 }

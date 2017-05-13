@@ -61,6 +61,7 @@ object run extends JFXApp{
 
   //stage.fullScreen = true
 
-  stage.icons.add(new Image("ArcheryRecordsIcon.png"))
+  //stage.icons.add(new Image("ArcheryRecordsIcon.png"))
+  stage.icons.add(new Image("Archery_Records_Icon.png"))
 
 }

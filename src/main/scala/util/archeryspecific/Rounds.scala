@@ -48,9 +48,32 @@ object Rounds {
   def getImperial(): List[ImperialRound] = {
     List(york, hereford, bristol2, bristol3, bristol4, bristol5, stGeorge, albion, windsor, windsor_short, windsor_junior, windsor_short_junior, western_new, western_long, western, western_short, western_junior, western_short_junior, american, stNicholas)
   }
+
+  def getMetric(): List[MetricRound] = {
+    List()
+  }
+
+  def getIndoor(): List[IndoorRound] = {
+    List()
+  }
+
+  //When using this method, you need to convert to the desired round
+  //Make more efficient by merge sort and binry search
+  def filterFor(roundDisplayName: String): GenericRound = {
+    for (o: GenericRound <- getImperial() ++ getMetric() ++ getIndoor()){
+      if (o.name == roundDisplayName){
+        return o
+      }
+    }
+    null
+  }
 }
 
-class ImperialRound(n: String, Hundred: Double, Eighty: Double, Sixty: Double, Fifty: Double, Forty: Double, Thirty: Double, Twenty: Double, Ten: Double, Gents: String, Ladies: String) {
+abstract class GenericRound{
+  val name: String
+}
+
+class ImperialRound(n: String, Hundred: Double, Eighty: Double, Sixty: Double, Fifty: Double, Forty: Double, Thirty: Double, Twenty: Double, Ten: Double, Gents: String, Ladies: String) extends GenericRound{
   val name: String = n
   val hundred: Double = Hundred
   val eighty: Double = Eighty
@@ -66,7 +89,7 @@ class ImperialRound(n: String, Hundred: Double, Eighty: Double, Sixty: Double, F
 }
 
 class MetricRound(Name: String, _122f90: Double, _122f70: Double, _122f60: Double, _122f50: Double, _122f40:Double, _122f30: Double, _122f20: Double,
-                  _80f50: Double,  _80f40: Double,  _80f30: Double,  _80f20: Double,  _80f15: Double,  _80f10: Double, Gents: String, Ladies: String){
+                  _80f50: Double,  _80f40: Double,  _80f30: Double,  _80f20: Double,  _80f15: Double,  _80f10: Double, Gents: String, Ladies: String) extends GenericRound{
   val name: String = Name
   object face_122cm{
     val ninety: Double = _122f90
@@ -87,7 +110,8 @@ class MetricRound(Name: String, _122f90: Double, _122f70: Double, _122f60: Doubl
   }
 }
 
-class IndoorRound(Name: String, _40f18m: Double, _40sf18m: Double, _60f25m: Double, _80f30m: Double, _60f20y: Double, _40f20y: Double, _60f25y: Double, _16insf20y: Double){
+class IndoorRound(Name: String, _40f18m: Double, _40sf18m: Double, _60f25m: Double, _80f30m: Double, _60f20y: Double, _40f20y: Double, _60f25y: Double, _16insf20y: Double) extends GenericRound{
+  val name: String = Name
   object face_40cm{
 
   }
@@ -103,4 +127,5 @@ class IndoorRound(Name: String, _40f18m: Double, _40sf18m: Double, _60f25m: Doub
   object face_16in_special{
 
   }
+
 }
