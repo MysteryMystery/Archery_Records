@@ -9,7 +9,7 @@ import exception.CustomDatabaseExeption
 
 import scala.collection.mutable.ListBuffer
 import ArcheryRecords.{debug, logger}
-import util.archeryspecific.ClassificationRequirements
+import util.archeryspecific.{BowType, ClassificationRequirements}
 import util.personspecific.Member
 
 import scala.collection.mutable
@@ -42,13 +42,21 @@ class DatabaseHandler {
   ))
 
   //Round scores storage
-  for (i <- ClassificationRequirements.Male.Adult.allRounds){
+  /*for (i <- ClassificationRequirements.Male.Adult.allRounds){
     createTable(i, mutable.LinkedHashMap(
       "archerID" -> "integer PRIMARY KEY",
       "bowtype" -> "varchar(1)",
       "score" -> "integer"
     ))
-  }
+  }*/
+
+  createTable("scores", mutable.LinkedHashMap(
+    "scoreid" -> "integer PRIMARY KEY AUTOINCREMENT",
+    "archerID" -> "integer",
+    "bowtype" -> "varchar(1)",
+    "roundname" -> "varchar(100)",
+    "score" -> "integer"
+  ))
 
   //badge claimed storage
 
@@ -117,8 +125,6 @@ class DatabaseHandler {
       query += "?,"
     }
     query = query.substring(0, query.length - 1) + ");"
-    println(query)
-    println(values)
 
     var preparedStatement: PreparedStatement = connection.prepareStatement(query)
     preparedStatement = populatePreparedStatementValues(preparedStatement, /*values.toList*/ column_value.values.toArray.toList)
@@ -265,6 +271,15 @@ class DatabaseHandler {
   def deleteArcher(archer: Member): Boolean = {
     var preparedStatement: PreparedStatement = connection.prepareStatement("DELETE FROM archer WHERE id = ?;")
     preparedStatement.setInt(1, archer.id.toInt)
+    preparedStatement.execute()
+  }
+
+  def addRound(archerID: Int, bowType: String, roundName: String, score: Int): Boolean = {
+    val preparedStatement: PreparedStatement = connection.prepareStatement("INSERT INTO scores (archerID, bowtype, roundname, score) VALUES (?,?,?,?);")
+    preparedStatement.setInt(1, archerID)
+    preparedStatement.setString(2, bowType.substring(0,1))
+    preparedStatement.setString(3, roundName)
+    preparedStatement.setInt(4, score)
     preparedStatement.execute()
   }
 }

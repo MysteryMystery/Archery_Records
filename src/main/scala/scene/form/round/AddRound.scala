@@ -1,11 +1,13 @@
 package scene.form.round
 
+import scene.form.member.DisplayMember
 import util.personspecific.Member
 import util.{GUIUtil, ScriptingUtil}
 import util.archeryspecific._
 
 import scalafx.collections.ObservableBuffer
-import scalafx.scene.control.{ChoiceBox, Tooltip}
+import scalafx.geometry.Pos
+import scalafx.scene.control.{Button, ChoiceBox, TextField, Tooltip}
 import scalafx.scene.text.Text
 
 /**
@@ -22,6 +24,9 @@ class AddRound(member: Member) extends GUIUtil with ScriptingUtil{
   var bowChoice: ChoiceBox[String] = _
   setupBowChoice
 
+  var scoreField: TextField = _
+  setupScoreField
+
 //  addInCol(0, 1, 3, 4,
 //    roundChoice
 //  )
@@ -29,6 +34,17 @@ class AddRound(member: Member) extends GUIUtil with ScriptingUtil{
   addInRow(0, 1, 2, 4,
     roundChoice, bowChoice
   )
+  gridPane.add(scoreField, 1, 1, 1, 1)
+  addInRow(0, 2, 1, 1, new Button("Add Round"){
+    defaultButton = true
+    onAction = (event: javafx.event.ActionEvent) => {
+      println(roundChoice.getSelectionModel.getSelectedItem)
+      println(bowChoice.getSelectionModel.getSelectedItem)
+      println(scoreField.text)
+      databaseHandler.addRound(member.id.toInt, bowChoice.getSelectionModel.getSelectedItem, roundChoice.getSelectionModel.getSelectedItem, scoreField.text.value.toInt)
+      ArcheryRecords.primaryStage.scene = new DisplayMember(List(member)) getScene
+    }
+  })
 
   def setupRoundChoice: Unit = {
     roundChoice = new ChoiceBox[String](){
@@ -36,6 +52,8 @@ class AddRound(member: Member) extends GUIUtil with ScriptingUtil{
       onAction = (event: javafx.event.ActionEvent) => {
         println(roundChoice.getSelectionModel.getSelectedItem)
       }
+      maxWidth = 250
+      prefWidth = 250
     }
 
     val roundChoiceContents: ObservableBuffer[String] = new ObservableBuffer[String]()
@@ -59,7 +77,18 @@ class AddRound(member: Member) extends GUIUtil with ScriptingUtil{
         println(bowChoice.getSelectionModel.getSelectedItem)
       }
       items = bowChoiceContents
+      maxWidth = 150
+      prefWidth = 150
     }
     bowChoice.getSelectionModel.selectFirst()
+  }
+
+  def setupScoreField: Unit = {
+    scoreField = new TextField(){
+      promptText = "Score"
+      alignmentInParent = Pos.CenterRight
+      prefWidth = 100
+      maxWidth = 100
+    }
   }
 }

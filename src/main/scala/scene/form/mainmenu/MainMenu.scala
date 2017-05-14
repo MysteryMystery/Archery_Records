@@ -113,6 +113,11 @@ class MainMenu extends GUIUtil with ScriptingUtil {
       System.out.println("Delete Member")
     }
   },0, 3)
+  buttonsGrid.add(new Button("Add Bulk rounds -> generate PDF (Club shoot)"){
+    onAction = (event: javafx.event.ActionEvent) => {
+      System.out.println("Add Bulk rounds -> generate PDF (Club shoot)")
+    }
+  }, 0, 4)
 
   gridPane.add(new Text("Members"){id="title"}, 0, 1, 1, 1)
   gridPane.add(memberListPane, 0, 2, 1, 5)
