@@ -12,7 +12,7 @@ import scalafx.scene.text.Text
 import ArcheryRecords._
 import scene.form.member.{AddMember, DisplayMember}
 import util.personspecific.Member
-import util.ImplicitHelpers
+import util.ImplicitHelpers._
 import util.archeryspecific.{ImperialRound, Rounds}
 
 import scalafx.collections.ObservableBuffer
