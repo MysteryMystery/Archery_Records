@@ -4,7 +4,8 @@ import javafx.event.ActionEvent
 
 import scene.form.mainmenu.MainMenu
 
-import scalafx.scene.control.{Button, Label, TextField}
+import scalafx.collections.ObservableBuffer
+import scalafx.scene.control._
 import scalafx.scene.text.Text
 
 /**
@@ -30,6 +31,7 @@ package object member {
   val postcodeLabel: Label = new Label("PostCode: ")
   val indoorClassLabel: Label = new Label("Indoor\nClassification: ")
   val outdoorClassLabel: Label = new Label("Outdoor\nClassification: ")
+  val categoryLabel: Label = new Label("Category: ")
   val warningText: Text = new Text(""){
     id = "warning"
   }
@@ -55,6 +57,10 @@ package object member {
   }
   val outdoorClassEntry: TextField = new TextField(){
     promptText = "Master Bowman"
+  }
+  val category: ListView[String] = new ListView[String](){
+    items = ObservableBuffer[String]("Male Adult", "Female Adult", "Male U18", "Female U18", "Male U16", "Female U16", "Male U12", "Female U12")
+    maxHeight = 20.0
   }
 
   //Buttons

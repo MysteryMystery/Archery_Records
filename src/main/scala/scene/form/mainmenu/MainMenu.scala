@@ -7,13 +7,13 @@ import data.{ConfigLoader, DatabaseHandler}
 import util.{GUIUtil, ScriptingUtil}
 
 import scalafx.event.ActionEvent
-import scalafx.scene.control.{Button, ListView, ScrollPane, TableView}
+import scalafx.scene.control._
 import scalafx.scene.text.Text
 import ArcheryRecords._
 import scene.form.member.{AddMember, DisplayMember}
 import util.personspecific.Member
 import util.ImplicitHelpers._
-import util.archeryspecific.{ImperialRound, Rounds}
+import util.archeryspecific.{GenericRound, ImperialRound, Rounds}
 
 import scalafx.collections.ObservableBuffer
 import scalafx.geometry.{Insets, Orientation, Pos}
@@ -49,11 +49,10 @@ class MainMenu extends GUIUtil with ScriptingUtil {
 
   var memberListView: ListView[String] = new ListView[String](){
     onMouseClicked = (event: javafx.scene.input.MouseEvent) => {
-      if (event.getClickCount == 2){
+      if (event.getClickCount == 2) {
         val selectedItems = memberListView.getSelectionModel.getSelectedItem.split(" ")
         ArcheryRecords.logger.log(ArcheryRecords.logger.DEBUG, this.getClass.getName, s"Selected Item: ${selectedItems.mkString(" ")}")
-
-        primaryStage.scene = new DisplayMember(databaseHandler.getArcher(selectedItems(0).replace(".", ""), selectedItems(1), selectedItems(2), null, null, null, null)) getScene
+        primaryStage.scene = new DisplayMember(databaseHandler.getArcher(selectedItems(0).replace(".", ""), selectedItems(1), selectedItems(2), null, null, null, null, null)) getScene
       }
     }
 
@@ -77,7 +76,7 @@ class MainMenu extends GUIUtil with ScriptingUtil {
   memberListView.items = memberListViewContents
 
   var roundListViewContents = new ObservableBuffer[String]()
-  for (x: ImperialRound <- Rounds.getImperial()){
+  for (x: GenericRound <- Rounds.getImperial() ++ Rounds.getIndoor() ++ Rounds.getMetric()){
     roundListViewContents.append(x.name)
   }
   roundListView.items = roundListViewContents

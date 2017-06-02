@@ -4,6 +4,7 @@ import data.{ConfigLoader, DatabaseHandler, PDFHandler}
 import exception.CustomDatabaseExeption
 import scene.form.login.{FirstUserRegistration, NormalLogin}
 import util.{GUIUtil, Logger}
+import util.ImplicitHelpers._
 
 import scala.beans.BeanProperty
 import scalafx.application.{AppHelper, JFXApp}
@@ -18,6 +19,7 @@ import scalafx.scene.text.Text
 import scalafx.scene.paint.Color._
 import _root_.web.PostCode
 
+import scala.collection.mutable.ListBuffer
 import scalafx.stage.Screen
 
 /**

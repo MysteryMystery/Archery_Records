@@ -1,7 +1,8 @@
-package util.archeryspecific
+package util.archeryspecific.classification
+
+import util.archeryspecific.classification.Classifications._
 
 import scala.beans.BeanProperty
-import Classifications._
 
 /**
   * Project: Archery_Records
@@ -78,6 +79,14 @@ object ClassificationRequirements {
 
     }
 
+  }
+
+  def calculateHandicap(roundName: String, score: Int): Int = {
+    0
+  }
+
+  def calculateClassfication(roundName: String, score: Int): String = {
+    "NYI"
   }
 }
 

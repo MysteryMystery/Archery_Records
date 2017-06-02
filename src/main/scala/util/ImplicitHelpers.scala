@@ -1,5 +1,9 @@
 package util
 
+import java.text.Collator
+import java.util
+
+import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 import scala.util.Try
 import scalafx.scene.layout.{GridPane, Region}
@@ -45,6 +49,10 @@ object ImplicitHelpers {
     def isPostCode(): Boolean = {
       string.matches("^[a-zA-Z]{2}\\d\\d \\d[a-zA-Z]{2}")
     }
+    def isEmpty(): Boolean = {
+      string == ""
+    }
+
   }
 
   implicit class PaneHelper(val string: GridPane) extends GridPane{
@@ -74,8 +82,10 @@ object ImplicitHelpers {
       toReturn.toArray
     }
 
-    def sortAlphabetical(): Seq[T] = {
-      mergeSort(generateValidAlphabet().map((c) => c.asInstanceOf[Int]).toList).map(c => c.asInstanceOf[T])
+    def sortAlphabetical(): util.Collection[String] = {
+      var toReturn: util.Collection[String] = new util.TreeSet[String](Collator.getInstance())
+      iterable.map((i) => toReturn.add(i.toString))
+      toReturn
     }
 
     private def merge(left: List[Int], right: List[Int]): List[Int] =

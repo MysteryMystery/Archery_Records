@@ -23,6 +23,9 @@ class AddMember extends GUIUtil{
     else if (!postCodeEntry.text.value.isPostCode()){
       warningText.text = "The postcode is not in correct format!"
     }
+    else if (category.getSelectionModel.getSelectedItem == null){
+      warningText.text = "Please select an age group!"
+    }
     else {
       databaseHandler.insertArcher(
         forenameEntry.text.value,
@@ -30,7 +33,8 @@ class AddMember extends GUIUtil{
         houseNumberEntry.text.value,
         postCodeEntry.text.value,
         indoorClassEntry.text.value,
-        outdoorClassEntry.text.value
+        outdoorClassEntry.text.value,
+        category.getSelectionModel.getSelectedItem
       )
       back.fire()
     }
@@ -41,6 +45,7 @@ class AddMember extends GUIUtil{
     surnameLabel,
     houseNumberLabel,
     postcodeLabel,
+    categoryLabel,
     indoorClassLabel,
     outdoorClassLabel,
     back
@@ -51,6 +56,7 @@ class AddMember extends GUIUtil{
     surnameEntry,
     houseNumberEntry,
     postCodeEntry,
+    category,
     indoorClassEntry,
     outdoorClassEntry,
     submit

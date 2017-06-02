@@ -3,7 +3,7 @@ package scene.form.member
 import util.{GUIUtil, ScriptingUtil}
 import util.personspecific.Member
 import ArcheryRecords.primaryStage
-import scene.form.round.AddRound
+import scene.form.round.{AddRound, ViewStats}
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -45,7 +45,7 @@ class DisplayMember(members: List[Member]) extends GUIUtil with ScriptingUtil{
     }
     val viewRounds: Button = new Button("View Stats"){
       onAction = (event: javafx.event.ActionEvent) => {
-        System.out.println("Go to rounds scene displaying all this archers score history, handicap etc")
+        primaryStage.scene = new ViewStats(member) getScene
       }
     }
     val addRoundShotButton: Button = new Button("Add Round"){
