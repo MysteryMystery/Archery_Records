@@ -1,6 +1,6 @@
 import javafx.application.Application
 
-import data.{ConfigLoader, DatabaseHandler, PDFHandler}
+import data.{ConfigLoader, DatabaseHandler, MSExcelHandler, PDFHandler}
 import exception.CustomDatabaseExeption
 import scene.form.login.{FirstUserRegistration, NormalLogin}
 import util.{GUIUtil, Logger}
@@ -66,4 +66,5 @@ object run extends JFXApp{
   //stage.icons.add(new Image("ArcheryRecordsIcon.png"))
   stage.icons.add(new Image("Archery_Records_Icon.png"))
 
+  new MSExcelHandler().setupSheet()
 }

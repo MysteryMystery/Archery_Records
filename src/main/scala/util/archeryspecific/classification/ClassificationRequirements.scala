@@ -82,6 +82,7 @@ object ClassificationRequirements {
   }
 
   def calculateHandicap(roundName: String, score: Int): Int = {
+    //http://www.crystalpalacebowmen.org.uk/handicap.shtml
     0
   }
 
