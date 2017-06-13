@@ -11,6 +11,7 @@ import scalafx.geometry.{Insets, Orientation, Pos}
 import scalafx.scene.control.{Label, ScrollPane}
 import scalafx.scene.layout.{Background, GridPane, Pane}
 import scalafx.scene.text.Text
+import scalafx.Includes._
 
 /**
   * Project: Archery_Records

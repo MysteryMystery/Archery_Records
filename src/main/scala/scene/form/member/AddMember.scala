@@ -6,6 +6,9 @@ import scalafx.scene.control.{Button, Label}
 import scalafx.scene.text.Text
 import util.ImplicitHelpers._
 
+import scalafx.Includes._
+import scalafx.event.ActionEvent
+
 /**
   * Project: Archery_Records
   * Package: scene.form.member
@@ -16,7 +19,7 @@ class AddMember extends GUIUtil{
   indoorClassLabel.text = "Initial Indoor\nClassification: "
   outdoorClassLabel.text = "Initial Outdoor\nClassification: "
 
-  submit.onAction = (event: javafx.event.ActionEvent) => {
+  submit.onAction = (event: ActionEvent) => {
     if (forenameEntry.text.value == "" || surnameEntry.text.value == ""){
       warningText.text = "You need to name the archer!"
     }

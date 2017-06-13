@@ -2,7 +2,7 @@ name := "Archery_Records"
 
 version := "1.0-SNAPSHOT"
 
-scalaVersion := "2.12.1"
+scalaVersion := "2.11.8"
 
 unmanagedJars in Compile += Attributed.blank(file(System.getenv("JAVA_HOME") + "/jre/lib/ext/jfxrt.jar"))
 

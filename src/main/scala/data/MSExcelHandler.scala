@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
 import scala.collection.immutable.HashMap
 import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
 
 /**
   * Project: Archery_Records
@@ -17,13 +18,48 @@ import scala.collection.mutable
 /*
   EXAMPLES AT https://poi.apache.org/spreadsheet/examples.html
  */
+/*
+  TODO ->
+
+  private var sheet = List[List[String]] of 100 lists of 26 length (a-z)
+  def setCell(value: OBject, cell: String) where cell in [A-Z][1-100] etc
+  makes building the sheet a bit easier
+ */
+
 class MSExcelHandler {
   private val STORAGEFILE = "data/data.xls"
   private val handicapSheet = "Handicaps"
+  private var sheets: mutable.LinkedHashMap[String, SheetData] = new mutable.LinkedHashMap[String, SheetData]()
+  private val wb: XSSFWorkbook = new XSSFWorkbook()
 
-  private val handicapsTitles: List[String] = List("ROUNDNAME", "blah", "blahdiblah")
+  newSheet("Handicaps")
+  editCell("Handicaps", "Blah", "A1")
 
-  def saveWorkbook(wb: Workbook): Unit = {
+  def saveWorkbook(): Unit = {
+    for (sheetName <- sheets.keys){
+      val sheet: Sheet = wb.createSheet(sheetName)
+      val styles = createStyles(wb)
+
+      sheet setHorizontallyCenter true
+      sheet setFitToPage true
+      val printSetup: PrintSetup =  sheet.getPrintSetup
+      printSetup setLandscape true
+
+      sheet setAutobreaks true
+      printSetup setFitHeight 1.toShort
+      printSetup setFitWidth 1.toShort
+
+      var rowNum = 0
+      for (row <- sheets.get(sheetName).get.getData){
+        val sheetRow: Row = sheet.createRow(rowNum)
+        rowNum += 1
+        for (c <- row.indices){
+          var cell: Cell = sheetRow.createCell(c)
+          cell.setCellValue(row(c))
+        }
+      }
+    }
+
     var out: FileOutputStream = null
     if (wb.isInstanceOf[XSSFWorkbook]){
       out = new FileOutputStream(STORAGEFILE + "x")
@@ -35,28 +71,13 @@ class MSExcelHandler {
     wb.close()
   }
 
-  def setupSheet(): Unit = {
-    val workbook: XSSFWorkbook = new XSSFWorkbook()
-    val sheet: Sheet = workbook.createSheet(handicapSheet)
-    val styles = createStyles(workbook)
+  def newSheet(sheetName: String): Unit = {
+    sheets.put(sheetName, new SheetData())
+  }
 
-    sheet setHorizontallyCenter true
-    sheet setFitToPage true
-    val printSetup: PrintSetup =  sheet.getPrintSetup
-    printSetup setLandscape true
-
-    sheet setAutobreaks true
-    printSetup setFitHeight 1.toShort
-    printSetup setFitWidth 1.toShort
-
-    val headerRow: Row = sheet.createRow(0)
-    headerRow setHeightInPoints 12.75f
-    for (i <- handicapsTitles.indices){
-      var cell: Cell = headerRow.createCell(i)
-      cell.setCellValue(handicapsTitles.apply(i))
-      cell.setCellStyle(styles.get("header").get)
-    }
-    saveWorkbook(workbook)
+  def editCell(sheetName: String, value: String, coordinate: String): Unit = {
+    sheets(sheetName).editCell(value, coordinate)
+    saveWorkbook()
   }
 
   def createStyles(wb: XSSFWorkbook): Map[String, CellStyle] = {
@@ -72,6 +93,38 @@ class MSExcelHandler {
     style.setFont(headerFont)
     toReturn += ("header"->style)
     toReturn.toMap
+  }
+
+  private class SheetData(){
+    private var data = ListBuffer[ListBuffer[String]]()
+
+    for (y <- 0 to 99){
+      var row = ListBuffer[String]()
+      for (x <- 0 until 26){
+        row += null
+      }
+      data += row
+    }
+
+    def getData: List[List[String]] = data.map((r) => r.toList).toList
+
+    def getRow(row: Int): List[String] = data(row).toList
+
+    def editCell(value: String, coordinate: String): Unit = {
+      val listToGet = coordinate(1).toInt - 49
+      val positionInInnerList = convertLetterToAlphabetPosition(coordinate(0))
+
+      println(positionInInnerList)
+
+      data(listToGet)(positionInInnerList) = value
+      println(data(listToGet)(positionInInnerList))
+    }
+
+    def convertLetterToAlphabetPosition(letter: Char): Integer = {
+      // 65 - 90 -> uppercase
+      // 97 - 122 -> lowercase
+      letter.toUpper - 65
+    }
   }
 
 }

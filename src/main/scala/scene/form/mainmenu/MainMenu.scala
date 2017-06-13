@@ -19,6 +19,7 @@ import scalafx.collections.ObservableBuffer
 import scalafx.geometry.{Insets, Orientation, Pos}
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.layout.{Background, GridPane}
+import scalafx.Includes._
 
 /**
   * Project: Archery_Records
@@ -48,7 +49,7 @@ class MainMenu extends GUIUtil with ScriptingUtil {
   var memberListPane: ScrollPane = new ScrollPane()
 
   var memberListView: ListView[String] = new ListView[String](){
-    onMouseClicked = (event: javafx.scene.input.MouseEvent) => {
+    onMouseClicked = (event: MouseEvent) => {
       if (event.getClickCount == 2) {
         val selectedItems = memberListView.getSelectionModel.getSelectedItem.split(" ")
         ArcheryRecords.logger.log(ArcheryRecords.logger.DEBUG, this.getClass.getName, s"Selected Item: ${selectedItems.mkString(" ")}")
@@ -93,27 +94,27 @@ class MainMenu extends GUIUtil with ScriptingUtil {
   memberListPane.prefHeight = Double.MaxValue
 
   buttonsGrid.add( new Button("Add Member"){
-    onAction = (event: javafx.event.ActionEvent) => {
+    onAction = (event: ActionEvent) => {
       primaryStage.scene = new AddMember getScene
     }
   }, 0, 0)
   buttonsGrid.add( new Button("Search Member"){
-    onAction = (event: javafx.event.ActionEvent) => {
+    onAction = (event: ActionEvent) => {
       System.out.println("Search Member")
     }
   }, 0, 1)
   buttonsGrid.add(new Button("Edit Member"){
-    onAction = (event: javafx.event.ActionEvent) => {
+    onAction = (event: ActionEvent) => {
       System.out.println("Edit Member")
     }
   }, 0, 2)
   buttonsGrid.add( new Button("Delete Member"){
-    onAction = (event: javafx.event.ActionEvent) => {
+    onAction = (event: ActionEvent) => {
       System.out.println("Delete Member")
     }
   },0, 3)
   buttonsGrid.add(new Button("Add Bulk rounds -> generate PDF (Club shoot)"){
-    onAction = (event: javafx.event.ActionEvent) => {
+    onAction = (event: ActionEvent) => {
       System.out.println("Add Bulk rounds -> generate PDF (Club shoot)")
     }
   }, 0, 4)

@@ -12,6 +12,7 @@ import scalafx.event.ActionEvent
 import scalafx.geometry.Pos
 import scalafx.scene.control.{Button, Label, ListView}
 import scalafx.scene.text.Text
+import scalafx.Includes._
 
 /**
   * Project: Archery_Records
@@ -38,18 +39,18 @@ class DisplayMember(members: List[Member]) extends GUIUtil with ScriptingUtil{
 
     val deleteButton: Button = new Button("Delete"){
       alignment = Pos.CenterRight
-      onAction = (event: javafx.event.ActionEvent) => {
+      onAction = (event: ActionEvent) => {
         databaseHandler.deleteArcher(member)
         back.fire()
       }
     }
     val viewRounds: Button = new Button("View Stats"){
-      onAction = (event: javafx.event.ActionEvent) => {
+      onAction = (event: ActionEvent) => {
         primaryStage.scene = new ViewStats(member) getScene
       }
     }
     val addRoundShotButton: Button = new Button("Add Round"){
-      onAction = (event: javafx.event.ActionEvent) =>{
+      onAction = (event: ActionEvent) =>{
         primaryStage.scene = new AddRound(member) getScene
 
       }
@@ -62,7 +63,7 @@ class DisplayMember(members: List[Member]) extends GUIUtil with ScriptingUtil{
     indoorClassEntry.text = member.indoorClass
     outdoorClassEntry.text = member.outdoorClass
 
-    submit.onAction = (event: javafx.event.ActionEvent) => {
+    submit.onAction = (event: ActionEvent) => {
       val sameVars: mutable.LinkedHashMap[String, String] = mutable.LinkedHashMap()
       val differentVars: mutable.LinkedHashMap[String, String] = mutable.LinkedHashMap()
 

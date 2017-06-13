@@ -66,5 +66,5 @@ object run extends JFXApp{
   //stage.icons.add(new Image("ArcheryRecordsIcon.png"))
   stage.icons.add(new Image("Archery_Records_Icon.png"))
 
-  new MSExcelHandler().setupSheet()
+  new MSExcelHandler().newSheet("blah")
 }

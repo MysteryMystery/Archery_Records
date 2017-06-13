@@ -1,12 +1,13 @@
 package scene.form
 
-import javafx.event.ActionEvent
 
 import scene.form.mainmenu.MainMenu
 
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.control._
 import scalafx.scene.text.Text
+import scalafx.Includes._
+import scalafx.event.ActionEvent
 
 /**
   * Project: Archery_Records

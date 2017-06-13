@@ -9,6 +9,8 @@ import scalafx.collections.ObservableBuffer
 import scalafx.geometry.Pos
 import scalafx.scene.control.{Button, ChoiceBox, TextField, Tooltip}
 import scalafx.scene.text.Text
+import scalafx.Includes._
+import scalafx.event.ActionEvent
 
 /**
   * Project: Archery_Records
@@ -37,7 +39,7 @@ class AddRound(member: Member) extends GUIUtil with ScriptingUtil{
   gridPane.add(scoreField, 1, 1, 1, 1)
   addInRow(0, 2, 1, 1, new Button("Add Round"){
     defaultButton = true
-    onAction = (event: javafx.event.ActionEvent) => {
+    onAction = (event: ActionEvent) => {
       println(roundChoice.getSelectionModel.getSelectedItem)
       println(bowChoice.getSelectionModel.getSelectedItem)
       println(scoreField.text)
@@ -49,7 +51,7 @@ class AddRound(member: Member) extends GUIUtil with ScriptingUtil{
   def setupRoundChoice: Unit = {
     roundChoice = new ChoiceBox[String](){
       tooltip = new Tooltip("Select the round shot")
-      onAction = (event: javafx.event.ActionEvent) => {
+      onAction = (event: ActionEvent) => {
         println(roundChoice.getSelectionModel.getSelectedItem)
       }
       maxWidth = 250
@@ -73,7 +75,7 @@ class AddRound(member: Member) extends GUIUtil with ScriptingUtil{
     bowChoiceContents.append(Recurve.displayName, Compound.displayName, Longbow.displayName)
     bowChoice = new ChoiceBox[String](){
       tooltip = new Tooltip("Select the bow type")
-      onAction = (event: javafx.event.ActionEvent) => {
+      onAction = (event: ActionEvent) => {
         println(bowChoice.getSelectionModel.getSelectedItem)
       }
       items = bowChoiceContents

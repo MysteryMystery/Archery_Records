@@ -1,5 +1,7 @@
 package scene.form.login
 
+import scalafx.Includes._
+
 import data.{ConfigLoader, DatabaseHandler}
 import scene.form.mainmenu.MainMenu
 import util.{GUIUtil, ScriptingUtil}
@@ -26,7 +28,7 @@ class NormalLogin extends GUIUtil with ScriptingUtil{
   passwordEntryPlainText.visible = false
 
   var changePassBox: CheckBox = new CheckBox("Show passwords in plain text.")
-  changePassBox.onAction = (event: javafx.event.ActionEvent) => {
+  changePassBox.onAction = (event: ActionEvent) => {
     passwordEntryPlainText.visible = changePassBox.selected.get()
     passwordEntryPasswordField.visible = !changePassBox.selected.get()
 
@@ -39,7 +41,7 @@ class NormalLogin extends GUIUtil with ScriptingUtil{
 
   var loginButton: Button = new Button("Login")
   loginButton.defaultButton = true
-  loginButton.onAction = (event: javafx.event.ActionEvent) => {
+  loginButton.onAction = (event: ActionEvent) => {
     var text: String = null
     if (passwordEntryPlainText.isVisible){
       text = passwordEntryPlainText.getText
