@@ -1,6 +1,6 @@
 package data
 
-import java.io.{FileInputStream, FileOutputStream}
+import java.io.{File, FileInputStream, FileOutputStream}
 
 import org.apache.poi.ss.usermodel._
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
@@ -30,10 +30,49 @@ class MSExcelHandler {
   private val STORAGEFILE = "data/data.xls"
   private val handicapSheet = "Handicaps"
   private var sheets: mutable.LinkedHashMap[String, SheetData] = new mutable.LinkedHashMap[String, SheetData]()
-  private val wb: XSSFWorkbook = new XSSFWorkbook()
+  private val wb: XSSFWorkbook = loadWorkBook()
+  if (sheets.size < 1){
+    setupDefaultSheets()
+  }
 
-  newSheet("Handicaps")
-  editCell("Handicaps", "Blah", "A1")
+  def loadWorkBook(): XSSFWorkbook = {
+    try{
+      val fileToLoad = new FileInputStream(new File(STORAGEFILE + "x"))
+      val workbook: XSSFWorkbook = new XSSFWorkbook(fileToLoad)
+      var sheetIter = workbook.sheetIterator()
+      while (sheetIter.hasNext){
+        val sheet = sheetIter.next()
+        var iter = sheet.iterator()
+        var rowCount = 0
+        while (iter.hasNext){
+          val currentRow: Row = iter.next()
+          val cellIter = currentRow.cellIterator()
+          var columnCount = 0
+          while (cellIter.hasNext){
+            val cell = cellIter.next()
+            sheets += (sheet.getSheetName -> new SheetData)
+            editCell(sheet.getSheetName, cell.getStringCellValue, s"${columnCount + 65 toChar}$rowCount")
+            columnCount += 1
+          }
+          rowCount += 1
+        }
+      }
+      workbook
+    }catch {
+      case e: Exception =>
+        println(e.getMessage)
+        new XSSFWorkbook()
+    }
+  }
+
+  def setupDefaultSheets(): Unit = {
+    var sheetData = new SheetData
+    sheetData.editCell("Western", "A1")
+    sheetData.editCell("round2", "B1")
+    sheets += ("Handicaps" -> sheetData)
+
+    saveWorkbook()
+  }
 
   def saveWorkbook(): Unit = {
     for (sheetName <- sheets.keys){
@@ -50,7 +89,7 @@ class MSExcelHandler {
       printSetup setFitWidth 1.toShort
 
       var rowNum = 0
-      for (row <- sheets.get(sheetName).get.getData){
+      for (row <- sheets(sheetName).getData){
         val sheetRow: Row = sheet.createRow(rowNum)
         rowNum += 1
         for (c <- row.indices){
@@ -117,7 +156,6 @@ class MSExcelHandler {
       println(positionInInnerList)
 
       data(listToGet)(positionInInnerList) = value
-      println(data(listToGet)(positionInInnerList))
     }
 
     def convertLetterToAlphabetPosition(letter: Char): Integer = {
